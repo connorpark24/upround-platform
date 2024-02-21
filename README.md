@@ -2,9 +2,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## To-Dos
 
-##### Accelerator
+### Accelerator
 
-##### Fund
+### Fund
 
-##### Deal Flow
+### Deal Flow
 

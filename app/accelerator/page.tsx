@@ -1,7 +1,7 @@
-export default function Dealflow() {
+export default function Accelerator() {
   return (
     <div className="flex min-h-screen w-full bg-slate-100">
-      <p>Dealflow</p>
+      <p>Accelerator</p>
     </div>
   );
 }

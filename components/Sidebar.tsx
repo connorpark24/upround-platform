@@ -9,36 +9,38 @@ export default function Sidebar() {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   return (
-    <div>
+    <div className="border-r-[3px] border-gray-100">
       {isOpen ? (
         <div className="w-60 flex flex-col p-6 min-h-screen">
           <button onClick={toggleSidebar} className="mb-6">
             <ChevronLeftIcon className="w-8 h-8" />
           </button>
-          <div className="flex flex-col text-lg gap-y-8">
+          <div className="flex flex-col text-lg gap-y-9">
             <div className="flex flex-col gap-y-2">
-              <Link href="/accelerator" className="text-gray-400 text-base">
+              <Link href="/" className="text-gray-400 text-base">
                 Home
               </Link>
               <Link href="/">Members</Link>
-              <Link href="/">Upcoming Events</Link>
+              <Link href="/">Events</Link>
+              <Link href="/">VC Relationships</Link>
+              <Link href="/">Our Ecosystem</Link>
             </div>
             <div className="flex flex-col gap-y-2">
               <Link href="/accelerator" className="text-gray-400 text-base">
                 Accelerator
               </Link>
-              <Link href="/">Tasks</Link>
+              <Link href="/accelerator/tasks">Tasks</Link>
               <Link href="/">Timeline</Link>
             </div>
             <div className="flex flex-col gap-y-2">
-              <Link href="/accelerator" className="text-gray-400 text-base">
+              <Link href="/dealflow" className="text-gray-400 text-base">
                 Dealflow
               </Link>
               <Link href="/">Startup Database</Link>
               <Link href="/">Progress</Link>
             </div>
             <div className="flex flex-col gap-y-2">
-              <Link href="/accelerator" className="text-gray-400 text-base">
+              <Link href="/fund" className="text-gray-400 text-base">
                 Fund
               </Link>
               <Link href="/">Startup Database</Link>

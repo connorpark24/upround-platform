@@ -22,6 +22,11 @@
 - VC relationship database
 - Michigan startup ecosystem
 
+## Data
+- Members: name, pod, year, email, Linkedin
+- Startups: name, link, Linkedin, status
+- VCs: name, firm
+
 ## To-Dos
 
 ### Accelerator

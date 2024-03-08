@@ -17,10 +17,13 @@
 - Progress tracker
 
 ### Overall
-- Stripe for dues (?)
-- Member database
+- Calendar: socials, meetings, able to add to own GCal
+- Member database: info, experiences
 - VC relationship database
 - Michigan startup ecosystem
+- Templates: outreach, emails, memos
+- Education: coffee chat checklist, assigned readings
+- Stripe for dues (?)
 
 ## Data
 - Members: name, pod, year, email, Linkedin

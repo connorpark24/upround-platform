@@ -1,15 +1,9 @@
-import Header from "@/components/Header";
-import { start } from "repl";
+"use client";
+import { useState, useEffect } from "react";
 
-type StartupData = {
-  name: string;
-  industry: string;
-  status: string;
-  umichStartup: boolean;
-  source: string;
-  extraNotes: string;
-  links: string;
-};
+import Header from "@/components/Header";
+import supabase from "@/utils/supabaseClient";
+import { Startup } from "@/utils/types";
 
 enum Status {
   Contacted = "Contacted",
@@ -21,7 +15,7 @@ enum Status {
 }
 
 type TableRowProps = {
-  startupData: StartupData;
+  startupData: Startup;
 };
 
 const getStatusColor = (status: string): string => {
@@ -43,28 +37,42 @@ const getStatusColor = (status: string): string => {
   }
 };
 
-const sampleData: StartupData[] = [
+const sampleData: Startup[] = [
   {
+    memberId: 1,
+    date: "Hello",
     name: "Tech Innovate",
     industry: "Software",
     status: "Call",
     umichStartup: true,
     source: "AngelList",
-    extraNotes: "Focus on AI technologies",
-    links: "https://www.techinnovate.com",
+    notes: "Focus on AI technologies",
+    link: "https://www.techinnovate.com",
   },
   {
+    memberId: 1,
+    date: "02-02-2222",
     name: "Eco Solutions",
     industry: "Environmental",
     status: "Contacted",
     umichStartup: false,
     source: "Crunchbase",
-    extraNotes: "Developed a new water purification system",
-    links: "https://www.ecosolutions.com",
+    notes: "Developed a new water purification system",
+    link: "https://www.ecosolutions.com",
   },
 ];
 
 export default function StartupDatabase() {
+  const [startups, setStartups] = useState<Startup[] | null>(null);
+
+  useEffect(() => {
+    const fetchStartups = async () => {
+      let { data, error } = await supabase.from("startups").select("*");
+      setStartups(data);
+    };
+    fetchStartups();
+  }, []);
+
   return (
     <div className="flex flex-col w-full h-full">
       <Header title="Startup Database" />
@@ -78,7 +86,7 @@ export default function StartupDatabase() {
           <div className="w-1/6">Extra Notes</div>
         </div>
         <div>
-          {sampleData.map((row, index) => (
+          {startups.map((row, index) => (
             <TableRow key={index} startupData={row} />
           ))}
         </div>
@@ -91,19 +99,19 @@ function TableRow({ startupData }: TableRowProps) {
   const statusColor = getStatusColor(startupData.status);
 
   return (
-    <div className="flex flex-row h-[4.5rem] items-center p-8 text-md border-b-[1px] border-gray-200">
+    <div className="flex flex-row h-[3.5rem] items-center p-7 text-md border-b-[1px] border-gray-200">
       <div className="w-1/6">{startupData.name}</div>
       <div className="w-1/6">{startupData.industry}</div>
       <div className="w-1/6">
         <span
-          className={`px-3.5 py-1.5 rounded-full text-white ${statusColor}`}
+          className={`text-sm px-3.5 py-1.5 rounded-full text-white ${statusColor}`}
         >
           {startupData.status}
         </span>
       </div>
       <div className="w-1/6">{startupData.umichStartup ? "Yes" : "No"}</div>
       <div className="w-1/6">{startupData.source}</div>
-      <div className="w-1/6">{startupData.extraNotes}</div>
+      <div className="w-1/6">{startupData.notes}</div>
     </div>
   );
 }

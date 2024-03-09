@@ -33,7 +33,7 @@ export default function Progress() {
         </div>
         <div className="w-3/4">
           <div className="mb-4 text-2xl font-medium pl-1">Startups Passed</div>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
             <StartupPassed />
             <StartupPassed />
             <StartupPassed />

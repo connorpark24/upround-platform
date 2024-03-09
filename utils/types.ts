@@ -1,7 +1,7 @@
 export type Member = {
   name: string;
   email: string;
-  phoen: string;
+  phone: string;
   major: string;
   year: number;
   pod: string;

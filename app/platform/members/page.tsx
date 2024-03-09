@@ -1,20 +1,14 @@
+"use client";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
-
-type MemberData = {
-  name: string;
-  year: number;
-  phone: string;
-  mail: string;
-  major: string;
-  pod: string;
-  hometown: string;
-};
+import supabase from "@/utils/supabaseClient";
+import { Member } from "@/utils/types";
 
 type TableRowProps = {
-  memberData: MemberData;
+  memberData: Member;
 };
 
-const sampleData: MemberData[] = [
+const sampleData: Member[] = [
   {
     name: "John Doe",
     year: 2024,
@@ -36,6 +30,16 @@ const sampleData: MemberData[] = [
 ];
 
 export default function Members() {
+  const [members, setMembers] = useState<Member[]>([]);
+
+  useEffect(() => {
+    const fetchStartups = async () => {
+      let { data, error } = await supabase.from("members").select("*");
+      if (data) setMembers(data);
+    };
+    fetchStartups();
+  }, []);
+
   return (
     <div className="flex flex-col w-full h-full">
       <Header title="Member Database" />
@@ -49,13 +53,7 @@ export default function Members() {
             <div className="w-1/6">Hometown</div>
           </div>
           <div>
-            {sampleData.map((row, index) => (
-              <TableRow key={index} memberData={row} />
-            ))}
-            {sampleData.map((row, index) => (
-              <TableRow key={index} memberData={row} />
-            ))}
-            {sampleData.map((row, index) => (
+            {members.map((row, index) => (
               <TableRow key={index} memberData={row} />
             ))}
           </div>
@@ -70,7 +68,7 @@ function TableRow({ memberData }: TableRowProps) {
     <div className="flex flex-row h-[4.5rem] items-center p-8 text-md border-b-[1px] border-gray-200">
       <div className="w-1/6">{memberData.name}</div>
       <div className="w-1/6 flex flex-col">
-        <div>{memberData.mail}</div>
+        <div>{memberData.email}</div>
         <div>{memberData.phone}</div>
       </div>
       <div className="w-1/6">

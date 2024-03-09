@@ -20,8 +20,7 @@
 - Calendar: socials, meetings, able to add to own GCal
 - Member database: info, experiences
 - VC relationship database
-- Michigan startup ecosystem
-- Templates: outreach, emails, memos
+- Resources: Michigan ecosystem, outreach, emails, memos
 - Education: coffee chat checklist, assigned readings
 - Stripe for dues (?)
 

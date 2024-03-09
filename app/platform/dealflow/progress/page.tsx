@@ -27,13 +27,13 @@ export default function Progress() {
     <div className="flex flex-col w-full h-full">
       <Header title="Progress" />
       <div className="p-8 flex flex-row w-full gap-x-10">
-        <div className="w-1/4">
+        <div className="w-1/3">
           <div className="mb-4 text-2xl font-medium pl-1">Leaderboard</div>
           <Leaderboard />
         </div>
-        <div className="w-3/4">
+        <div className="w-2/3">
           <div className="mb-4 text-2xl font-medium pl-1">Startups Passed</div>
-          <div className="grid grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             <StartupPassed />
             <StartupPassed />
             <StartupPassed />
@@ -60,8 +60,8 @@ function Leaderboard() {
   return (
     <div className="bg-white rounded-lg h-full border-gray-200 border-2 w-full">
       <div className="flex flex-row h-14 items-center p-8 text-md border-b-[1px] border-gray-200 text-lg">
-        <div className="w-1/2 font-medium">Name</div>
-        <div className="w-1/2 font-medium">Startups Reached</div>
+        <div className="w-1/2 font-medium text-base">Name</div>
+        <div className="w-1/2 font-medium text-base">Startups Reached</div>
       </div>
       <div>
         {sampleData.map((row, index) => (

@@ -4,7 +4,9 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full h-full">
       <Header title="Home" />
-      <div>Home</div>
+      <div>Calendar</div>
+      <div>Annoucements</div>
+      <div>Upcoming Events</div>
     </div>
   );
 }

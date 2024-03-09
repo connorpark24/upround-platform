@@ -12,7 +12,7 @@ export default function Sidebar() {
     <div className="border-r-[3px] border-gray-100">
       {isOpen ? (
         <div className="w-60 flex flex-col p-6 min-h-screen">
-          <button onClick={toggleSidebar} className="mb-6">
+          <button onClick={toggleSidebar} className="mb-6 h-8 w-8">
             <ChevronLeftIcon className="w-8 h-8" />
           </button>
           <div className="flex flex-col text-lg gap-y-9">
@@ -20,9 +20,7 @@ export default function Sidebar() {
               <Link href="/" className="text-gray-400 text-base">
                 Home
               </Link>
-              <Link href="/">Members</Link>
-              <Link href="/">Events</Link>
-              <Link href="/">VC Relationships</Link>
+              <Link href="/members">Members</Link>
               <Link href="/">Our Ecosystem</Link>
             </div>
             <div className="flex flex-col gap-y-2">
@@ -36,8 +34,8 @@ export default function Sidebar() {
               <Link href="/dealflow" className="text-gray-400 text-base">
                 Dealflow
               </Link>
-              <Link href="/">Startup Database</Link>
-              <Link href="/">Progress</Link>
+              <Link href="/dealflow/startup-database">Startup Database</Link>
+              <Link href="/dealflow/progress">Progress</Link>
             </div>
             <div className="flex flex-col gap-y-2">
               <Link href="/fund" className="text-gray-400 text-base">
@@ -49,7 +47,7 @@ export default function Sidebar() {
           </div>
         </div>
       ) : (
-        <div className="w-20 flex flex-col items-center pt-6 gap-y-2">
+        <div className="w-20 flex flex-col items-center pt-6 gap-y-2 min-h-screen">
           <button onClick={toggleSidebar}>
             <ChevronRightIcon className="w-8 h-8" />
           </button>

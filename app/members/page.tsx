@@ -35,7 +35,7 @@ const sampleData: MemberData[] = [
   },
 ];
 
-export default function Home() {
+export default function Members() {
   return (
     <div className="flex flex-col w-full h-full">
       <Header title="Member Database" />

@@ -25,15 +25,7 @@
 - Stripe for dues (?)
 
 ## Data
-- Members: name, pod, year, email, Linkedin
-- Startups: name, link, Linkedin, status
+- Members: name, email, number, major, year, pod, hometown
+- Startups: name, member, industry, status, source, extra notes, link
 - VCs: name, firm
-
-## To-Dos
-
-### Accelerator
-
-### Fund
-
-### Deal Flow
 

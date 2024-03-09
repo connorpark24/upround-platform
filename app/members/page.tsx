@@ -39,24 +39,26 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full h-full">
       <Header title="Member Database" />
-      <div className="m-4 bg-white rounded-lg h-full border-gray-200 border-2">
-        <div className="flex flex-row w-full h-14 items-center p-8 text-md border-b-[1px] border-gray-200">
-          <div className="w-1/6">Name</div>
-          <div className="w-1/6">Contact</div>
-          <div className="w-1/6">Major</div>
-          <div className="w-1/6">Pod</div>
-          <div className="w-1/6">Hometown</div>
-        </div>
-        <div>
-          {sampleData.map((row, index) => (
-            <TableRow key={index} memberData={row} />
-          ))}
-          {sampleData.map((row, index) => (
-            <TableRow key={index} memberData={row} />
-          ))}
-          {sampleData.map((row, index) => (
-            <TableRow key={index} memberData={row} />
-          ))}
+      <div className="p-8">
+        <div className="bg-white rounded-lg h-full border-gray-200 border-2">
+          <div className="flex flex-row w-full h-14 items-center p-8 text-md border-b-[1px] border-gray-200">
+            <div className="w-1/6">Name</div>
+            <div className="w-1/6">Contact</div>
+            <div className="w-1/6">Major</div>
+            <div className="w-1/6">Pod</div>
+            <div className="w-1/6">Hometown</div>
+          </div>
+          <div>
+            {sampleData.map((row, index) => (
+              <TableRow key={index} memberData={row} />
+            ))}
+            {sampleData.map((row, index) => (
+              <TableRow key={index} memberData={row} />
+            ))}
+            {sampleData.map((row, index) => (
+              <TableRow key={index} memberData={row} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

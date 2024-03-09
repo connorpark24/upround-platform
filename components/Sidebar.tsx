@@ -21,7 +21,7 @@ export default function Sidebar() {
                 Home
               </Link>
               <Link href="/members">Members</Link>
-              <Link href="/">Our Ecosystem</Link>
+              <Link href="/resources">Resources</Link>
             </div>
             <div className="flex flex-col gap-y-2">
               <Link href="/accelerator" className="text-gray-400 text-base">

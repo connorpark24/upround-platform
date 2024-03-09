@@ -36,31 +36,6 @@ const getStatusColor = (status: string): string => {
   }
 };
 
-const sampleData: Startup[] = [
-  {
-    memberId: 1,
-    date: "Hello",
-    name: "Tech Innovate",
-    industry: "Software",
-    status: "Call",
-    umichStartup: true,
-    source: "AngelList",
-    notes: "Focus on AI technologies",
-    link: "https://www.techinnovate.com",
-  },
-  {
-    memberId: 1,
-    date: "02-02-2222",
-    name: "Eco Solutions",
-    industry: "Environmental",
-    status: "Contacted",
-    umichStartup: false,
-    source: "Crunchbase",
-    notes: "Developed a new water purification system",
-    link: "https://www.ecosolutions.com",
-  },
-];
-
 export default function StartupDatabase() {
   const [startups, setStartups] = useState<Startup[]>([]);
 

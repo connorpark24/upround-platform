@@ -8,27 +8,6 @@ type TableRowProps = {
   memberData: Member;
 };
 
-const sampleData: Member[] = [
-  {
-    name: "John Doe",
-    year: 2024,
-    phone: "123-456-7890",
-    mail: "johndoe@gmail.com",
-    major: "Computer Science",
-    pod: "Alpha",
-    hometown: "Ann Arbor, MI",
-  },
-  {
-    name: "Jane Smith",
-    year: 2026,
-    phone: "987-654-3210",
-    mail: "janesmith@gmail.com",
-    major: "Mathematics",
-    pod: "Beta",
-    hometown: "Fairfax, VA",
-  },
-];
-
 export default function Members() {
   const [members, setMembers] = useState<Member[]>([]);
 

@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { Bars3Icon } from "@heroicons/react/20/solid";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 
@@ -17,32 +16,26 @@ export default function Sidebar() {
           </button>
           <div className="flex flex-col text-lg gap-y-9">
             <div className="flex flex-col gap-y-2">
-              <Link href="/" className="text-gray-400 text-base">
-                Home
-              </Link>
-              <Link href="/members">Members</Link>
-              <Link href="/resources">Resources</Link>
+              <div className="text-gray-400 text-base">Home</div>
+              <Link href="/platform/">Dashboard</Link>
+              <Link href="/platform/members">Members</Link>
+              <Link href="/platform/resources">Resources</Link>
             </div>
             <div className="flex flex-col gap-y-2">
-              <Link href="/accelerator" className="text-gray-400 text-base">
-                Accelerator
-              </Link>
-              <Link href="/accelerator/tasks">Tasks</Link>
-              <Link href="/">Timeline</Link>
+              <div className="text-gray-400 text-base">Accelerator</div>
+              <Link href="/platform/accelerator/tasks">Tasks</Link>
+              <Link href="/platform/accelerator/timeline">Timeline</Link>
             </div>
             <div className="flex flex-col gap-y-2">
-              <Link href="/dealflow" className="text-gray-400 text-base">
-                Dealflow
+              <div className="text-gray-400 text-base">Dealflow</div>
+              <Link href="/platform/dealflow/startup-database">
+                Startup Database
               </Link>
-              <Link href="/dealflow/startup-database">Startup Database</Link>
-              <Link href="/dealflow/progress">Progress</Link>
+              <Link href="/platform/dealflow/progress">Progress</Link>
             </div>
             <div className="flex flex-col gap-y-2">
-              <Link href="/fund" className="text-gray-400 text-base">
-                Fund
-              </Link>
-              <Link href="/">Startup Database</Link>
-              <Link href="/">Progress</Link>
+              <div className="text-gray-400 text-base">Fund</div>
+              <Link href="/platform/startup-board">Startup Board</Link>
             </div>
           </div>
         </div>

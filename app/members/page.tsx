@@ -1,7 +1,20 @@
 import Header from "@/components/Header";
 
-// Sample data
-const sampleData = [
+type MemberData = {
+  name: string;
+  year: number;
+  phone: string;
+  mail: string;
+  major: string;
+  pod: string;
+  hometown: string;
+};
+
+type TableRowProps = {
+  memberData: MemberData;
+};
+
+const sampleData: MemberData[] = [
   {
     name: "John Doe",
     year: 2024,
@@ -50,7 +63,7 @@ export default function Home() {
   );
 }
 
-function TableRow({ memberData }) {
+function TableRow({ memberData }: TableRowProps) {
   return (
     <div className="flex flex-row h-[4.5rem] items-center p-8 text-md border-b-[1px] border-gray-200">
       <div className="w-1/6">{memberData.name}</div>

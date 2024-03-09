@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-
 import Header from "@/components/Header";
 import supabase from "@/utils/supabaseClient";
 import { Startup } from "@/utils/types";
@@ -63,12 +62,12 @@ const sampleData: Startup[] = [
 ];
 
 export default function StartupDatabase() {
-  const [startups, setStartups] = useState<Startup[] | null>(null);
+  const [startups, setStartups] = useState<Startup[]>([]);
 
   useEffect(() => {
     const fetchStartups = async () => {
       let { data, error } = await supabase.from("startups").select("*");
-      setStartups(data);
+      if (data) setStartups(data);
     };
     fetchStartups();
   }, []);
@@ -77,7 +76,7 @@ export default function StartupDatabase() {
     <div className="flex flex-col w-full h-full">
       <Header title="Startup Database" />
       <div className="m-4 bg-white rounded-lg h-full border-gray-200 border-2">
-        <div className="flex flex-row w-full h-14 items-center p-8 text-md border-b-[1px] border-gray-200">
+        <div className="flex flex-row h-14 items-center p-8 text-md border-b-[1px] border-gray-200">
           <div className="w-1/6">Name</div>
           <div className="w-1/6">Industry</div>
           <div className="w-1/6">Status</div>
@@ -100,18 +99,24 @@ function TableRow({ startupData }: TableRowProps) {
 
   return (
     <div className="flex flex-row h-[3.5rem] items-center p-7 text-md border-b-[1px] border-gray-200">
-      <div className="w-1/6">{startupData.name}</div>
-      <div className="w-1/6">{startupData.industry}</div>
-      <div className="w-1/6">
+      <div className="w-1/6 pr-2">
+        <a href={startupData.link} target="_blank" rel="noopener noreferrer">
+          {startupData.name}
+        </a>
+      </div>
+      <div className="w-1/6 pr-2">{startupData.industry}</div>
+      <div className="w-1/6 pr-2">
         <span
-          className={`text-sm px-3.5 py-1.5 rounded-full text-white ${statusColor}`}
+          className={`text-xs px-3.5 py-1.5 rounded-full text-white ${statusColor}`}
         >
           {startupData.status}
         </span>
       </div>
-      <div className="w-1/6">{startupData.umichStartup ? "Yes" : "No"}</div>
-      <div className="w-1/6">{startupData.source}</div>
-      <div className="w-1/6">{startupData.notes}</div>
+      <div className="w-1/6 pr-2">
+        {startupData.umichStartup ? "Yes" : "No"}
+      </div>
+      <div className="w-1/6 pr-2">{startupData.source}</div>
+      <div className="w-1/6 pr-2 text-sm">{startupData.notes}</div>
     </div>
   );
 }

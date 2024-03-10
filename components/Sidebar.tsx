@@ -12,43 +12,61 @@ export default function Sidebar() {
       {isOpen ? (
         <div className="w-60 flex flex-col p-6 min-h-screen">
           <button onClick={toggleSidebar} className="mb-6 h-8 w-8">
-            <ChevronLeftIcon className="w-8 h-8" />
+            <ChevronLeftIcon className="w-6 h-6" />
           </button>
-          <div className="flex flex-col text-lg gap-y-9">
+          <div className="flex flex-col gap-y-9">
             <div className="flex flex-col gap-y-2">
-              <div className="text-gray-400 text-base">Home</div>
-              <Link href="/platform/">Dashboard</Link>
-              <Link href="/platform/members">Members</Link>
-              <Link href="/platform/resources">Resources</Link>
+              <div className="text-gray-400 text-sm">Home</div>
+              <Link className="text-base" href="/platform/">
+                Dashboard
+              </Link>
+              <Link className="text-base" href="/platform/members">
+                Members
+              </Link>
+              <Link className="text-base" href="/platform/resources">
+                Resources
+              </Link>
             </div>
             <div className="flex flex-col gap-y-2">
-              <div className="text-gray-400 text-base">Accelerator</div>
-              <Link href="/platform/accelerator/tasks">Tasks</Link>
-              <Link href="/platform/accelerator/timeline">Timeline</Link>
+              <div className="text-gray-400 text-sm">Accelerator</div>
+              <Link className="text-base" href="/platform/accelerator/tasks">
+                Tasks
+              </Link>
+              <Link className="text-base" href="/platform/accelerator/timeline">
+                Timeline
+              </Link>
             </div>
             <div className="flex flex-col gap-y-2">
-              <div className="text-gray-400 text-base">Dealflow</div>
-              <Link href="/platform/dealflow/startup-database">
+              <div className="text-gray-400 text-sm">Dealflow</div>
+              <Link
+                className="text-base"
+                href="/platform/dealflow/startup-database"
+              >
                 Startup Database
               </Link>
-              <Link href="/platform/dealflow/progress">Progress</Link>
+              <Link className="text-base" href="/platform/dealflow/progress">
+                Progress
+              </Link>
             </div>
             <div className="flex flex-col gap-y-2">
-              <div className="text-gray-400 text-base">Fund</div>
-              <Link href="/platform/startup-board">Startup Board</Link>
+              <div className="text-gray-400 text-sm">Fund</div>
+              <Link className="text-base" href="/platform/startup-board">
+                Startup Board
+              </Link>
             </div>
           </div>
-          <div className="mt-auto text-lg">
+          <div className="mt-auto text-base">
             <div className="flex flex-col gap-y-2 ">
-              <Link href="/platform/startup-board">Profile</Link>
-              <Link href="/platform/startup-board">Settings</Link>
+              <Link className="text-base" href="/platform/settings">
+                Settings
+              </Link>
             </div>
           </div>
         </div>
       ) : (
-        <div className="w-20 flex flex-col items-center pt-6 gap-y-2 min-h-screen">
+        <div className="w-16 flex flex-col items-center pt-6 gap-y-2 min-h-screen">
           <button onClick={toggleSidebar}>
-            <ChevronRightIcon className="w-8 h-8" />
+            <ChevronRightIcon className="w-6 h-6" />
           </button>
         </div>
       )}

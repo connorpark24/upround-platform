@@ -8,7 +8,7 @@ export default function Button({ text, onClick }: ButtonProps) {
     <div>
       <button
         type="button"
-        className="items-center px-6 h-10 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-400"
+        className="items-center px-8 h-10 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-400"
         onClick={onClick}
       >
         {text}

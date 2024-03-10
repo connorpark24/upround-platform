@@ -38,13 +38,11 @@ export default function StartupDatabase() {
   const [query, setQuery] = useState<string>("");
   const [industry, setIndustry] = useState<string>("");
   const [status, setStatus] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [startupName, setStartupName] = useState<string>("");
 
   useEffect(() => {
     const fetchStartups = async () => {
-      setIsLoading(true);
       let { data, error } = await supabase.from("startups").select("*");
       if (error) {
         console.error(error);
@@ -70,7 +68,6 @@ export default function StartupDatabase() {
       }
 
       setStartups(filteredData);
-      setIsLoading(false);
     };
 
     fetchStartups();
@@ -85,7 +82,7 @@ export default function StartupDatabase() {
   return (
     <div className="flex flex-col w-full h-full overflow-auto">
       <Header title="Startup Database" />
-      <div className="p-8">
+      <div className="px-8 pt-4">
         <div className="w-full flex flex-row gap-x-8 mb-6 h-16">
           <div>
             <label className="block text-md font-medium mb-1">Search</label>

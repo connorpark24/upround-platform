@@ -1,62 +1,85 @@
+"use client";
+import { useState } from "react";
+import Button from "@/components/Button";
 import Header from "@/components/Header";
 
-type MemberData = {
-  name: string;
-  year: number;
-  phone: string;
-  mail: string;
-  major: string;
-  pod: string;
-  hometown: string;
+type TaskData = {
+  title: string;
+  members: number[];
+  dueDate: Date;
+  status: string;
+  notes: string;
 };
 
 type TableRowProps = {
-  memberData: MemberData;
+  taskData: TaskData;
 };
 
-const sampleData: MemberData[] = [
+const sampleData: TaskData[] = [
   {
-    name: "John Doe",
-    year: 2024,
-    phone: "123-456-7890",
-    mail: "johndoe@gmail.com",
-    major: "Computer Science",
-    pod: "Alpha",
-    hometown: "Ann Arbor, MI",
+    title: "Design Website Layout",
+    members: [1, 2],
+    dueDate: new Date("2023-05-15"),
+    status: "In Progress",
+    notes: "Focus on user-friendly navigation",
   },
   {
-    name: "Jane Smith",
-    year: 2026,
-    phone: "987-654-3210",
-    mail: "janesmith@gmail.com",
-    major: "Mathematics",
-    pod: "Beta",
-    hometown: "Fairfax, VA",
+    title: "Prepare Presentation Slides",
+    members: [3],
+    dueDate: new Date("2023-05-20"),
+    status: "Not Started",
+    notes: "Include project timeline and milestones",
+  },
+  {
+    title: "Conduct User Interviews",
+    members: [2, 4],
+    dueDate: new Date("2023-05-25"),
+    status: "Completed",
+    notes: "Compile interview notes and insights",
   },
 ];
 
 export default function Tasks() {
+  const [query, setQuery] = useState<string>("");
+
   return (
     <div className="flex flex-col w-full h-full">
       <Header title="Tasks" />
-      <div className="p-6">
-        <div className="bg-white rounded-lg h-full border-gray-200 border-2">
-          <div className="flex flex-row w-full h-14 items-center p-8 text-md border-b-[1px] border-gray-200">
-            <div className="w-1/6">Name</div>
-            <div className="w-1/6">Contact</div>
-            <div className="w-1/6">Major</div>
-            <div className="w-1/6">Pod</div>
-            <div className="w-1/6">Hometown</div>
+      <div className="px-8 pt-4">
+        <div className="w-full flex flex-row gap-x-8 mb-8 h-16">
+          <div>
+            <label className="block text-md font-medium mb-1">Search</label>
+            <div>
+              <input
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                }}
+                className="w-64 h-10 rounded-md border-2 p-2 text-sm placeholder:text-gray-400"
+              />
+            </div>
+          </div>
+          <div className="self-end ml-auto">
+            <Button
+              text={"Add Task"}
+              onClick={() => console.log("Button clicked")}
+            />
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg border-gray-200 border-2">
+          <div className="flex flex-row w-full items-center px-8 py-3 bg-gray-100 text-md border-b-[1px] border-gray-200">
+            <div className="w-1/3">Title</div>
+            <div className="w-1/6">Member(s)</div>
+            <div className="w-1/6">Done By</div>
+            <div className="w-1/6">Status</div>
           </div>
           <div>
             {sampleData.map((row, index) => (
-              <TableRow key={index} memberData={row} />
+              <TableRow key={index} taskData={row} />
             ))}
             {sampleData.map((row, index) => (
-              <TableRow key={index} memberData={row} />
-            ))}
-            {sampleData.map((row, index) => (
-              <TableRow key={index} memberData={row} />
+              <TableRow key={index} taskData={row} />
             ))}
           </div>
         </div>
@@ -65,19 +88,13 @@ export default function Tasks() {
   );
 }
 
-function TableRow({ memberData }: TableRowProps) {
+function TableRow({ taskData }: TableRowProps) {
   return (
-    <div className="flex flex-row h-[4.5rem] items-center p-8 text-md border-b-[1px] border-gray-200">
-      <div className="w-1/6">{memberData.name}</div>
-      <div className="w-1/6 flex flex-col">
-        <div>{memberData.mail}</div>
-        <div>{memberData.phone}</div>
-      </div>
-      <div className="w-1/6">
-        {memberData.major}, {memberData.year}
-      </div>
-      <div className="w-1/6">{memberData.pod}</div>
-      <div className="w-1/6">{memberData.hometown}</div>
+    <div className="flex flex-row items-center px-8 py-3 text-sm border-b-[1px] border-gray-200">
+      <div className="w-1/3">{taskData.title}</div>
+      <div className="w-1/6">{taskData.members[0]}</div>
+      <div className="w-1/6">{taskData.dueDate.getDate()}</div>
+      <div className="w-1/6">{taskData.status}</div>
     </div>
   );
 }

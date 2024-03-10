@@ -38,6 +38,12 @@ export default function Sidebar() {
               <Link href="/platform/startup-board">Startup Board</Link>
             </div>
           </div>
+          <div className="mt-auto text-lg">
+            <div className="flex flex-col gap-y-2 ">
+              <Link href="/platform/startup-board">Profile</Link>
+              <Link href="/platform/startup-board">Settings</Link>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="w-20 flex flex-col items-center pt-6 gap-y-2 min-h-screen">

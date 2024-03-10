@@ -14,10 +14,6 @@ enum Status {
   Rejected = "Rejected",
 }
 
-type TableRowProps = {
-  startupData: Startup;
-};
-
 const getStatusColor = (status: string): string => {
   switch (status) {
     case "Contacted":
@@ -40,30 +36,56 @@ const getStatusColor = (status: string): string => {
 export default function StartupDatabase() {
   const [startups, setStartups] = useState<Startup[]>([]);
   const [query, setQuery] = useState<string>("");
+  const [industry, setIndustry] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchStartups = async () => {
+      setIsLoading(true);
       let { data, error } = await supabase.from("startups").select("*");
-      if (data) setStartups(data);
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      let filteredData = data || [];
+
+      if (query) {
+        filteredData = filteredData.filter((startup) =>
+          startup.name.toLowerCase().includes(query.toLowerCase())
+        );
+      }
+      if (industry) {
+        filteredData = filteredData.filter(
+          (startup) => startup.industry === industry
+        );
+      }
+      if (status) {
+        filteredData = filteredData.filter(
+          (startup) => startup.status === status
+        );
+      }
+
+      setStartups(filteredData);
+      setIsLoading(false);
     };
+
     fetchStartups();
-  }, []);
+  }, [query, industry, status]);
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col w-full h-full overflow-auto">
       <Header title="Startup Database" />
       <div className="p-8">
-        <div className="w-full flex flex-row gap-x-8 mb-4 h-16">
+        <div className="w-full flex flex-row gap-x-8 mb-6 h-16">
           <div>
-            <label htmlFor="email" className="block text-md font-medium mb-1">
+            <label htmlFor="search" className="block text-md font-medium mb-1">
               Search
             </label>
             <div>
               <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
+                id="search"
                 required
                 value={query}
                 onChange={(e) => {
@@ -83,11 +105,12 @@ export default function StartupDatabase() {
             <select
               id="industry"
               name="industry"
+              onChange={(e) => setIndustry(e.target.value)}
               className="w-full h-10 p-2 rounded-md border-2 items-center text-sm placeholder:text-gray-400"
             >
               <option value="">Select Industry</option>
-              <option value="Tech">Tech</option>
-              <option value="Healthcare">Healthcare</option>
+              <option value="Consumer + Food">Consumer + Food</option>
+              <option value="Tech + Biomed">Tech + Biomed</option>
               <option value="Finance">Finance</option>
             </select>
           </div>
@@ -99,6 +122,7 @@ export default function StartupDatabase() {
             <select
               id="status"
               name="status"
+              onChange={(e) => setStatus(e.target.value)}
               className="w-full h-10 rounded-md border-2 items-center text-sm p-2 placeholder:text-gray-400"
             >
               <option value="">Select Status</option>
@@ -114,7 +138,7 @@ export default function StartupDatabase() {
           </div>
         </div>
         <div className="rounded-lg border-gray-200 border-2">
-          <div className="flex flex-row h-14 items-center p-8 text-md border-b-[1px] border-gray-200">
+          <div className="flex flex-row py-3 px-8 items-center text-md bg-gray-100 border-b-[1px] border-gray-200">
             <div className="w-1/6">Name</div>
             <div className="w-1/6">Industry</div>
             <div className="w-1/6">Status</div>
@@ -132,6 +156,10 @@ export default function StartupDatabase() {
     </div>
   );
 }
+
+type TableRowProps = {
+  startupData: Startup;
+};
 
 function TableRow({ startupData }: TableRowProps) {
   const statusColor = getStatusColor(startupData.status);

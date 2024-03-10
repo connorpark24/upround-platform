@@ -16,9 +16,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row h-screen overflow-hidden">
       <Sidebar />
-      <div className="flex flex-col w-full">{children}</div>
+      <div className="flex flex-col w-full flex-1 overflow-auto">
+        {children}
+      </div>
     </div>
   );
 }

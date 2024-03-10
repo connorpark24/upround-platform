@@ -49,7 +49,7 @@ export default function Progress() {
 
 function Leaderboard() {
   return (
-    <div className="bg-white rounded-lg border-gray-200 border-2 w-full">
+    <div className="bg-white rounded-lg border-gray-200 border-[1px] w-full">
       <div className="flex flex-row items-center py-3 px-8 border-b-[1px] border-gray-200 bg-gray-100">
         <div className="w-1/2 font-medium">Name</div>
         <div className="w-1/2 font-medium">Startups Reached</div>

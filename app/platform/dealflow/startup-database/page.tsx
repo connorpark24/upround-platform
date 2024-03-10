@@ -3,6 +3,7 @@ import { useState, useEffect, ReactNode } from "react";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
 import StartupForm from "@/components/StartupForm";
+import Modal from "@/components/Modal";
 import supabase from "@/utils/supabaseClient";
 import { Startup, StartupStatus } from "@/utils/types";
 
@@ -31,7 +32,6 @@ export default function StartupDatabase() {
   const [industry, setIndustry] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [startupName, setStartupName] = useState<string>("");
   const [newStartup, setNewStartup] = useState<Startup>({
     name: "",
     memberId: 0,
@@ -78,7 +78,7 @@ export default function StartupDatabase() {
 
   const handleAddStartup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(startupName);
+    console.log(newStartup.name);
     setIsModalOpen(false);
   };
 
@@ -192,21 +192,6 @@ const TableRow = ({ startupData }: TableRowProps) => {
       </div>
       <div className="w-1/6 pr-2 text-sm">{startupData.source}</div>
       <div className="w-1/3 pr-2 text-sm">{startupData.memberId}</div>
-    </div>
-  );
-};
-
-interface ModalProps {
-  isOpen: boolean;
-  children: ReactNode;
-}
-
-const Modal: React.FC<ModalProps> = ({ isOpen, children }) => {
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-25 z-50 flex justify-center items-center">
-      <div className="bg-white rounded-md z-5 w-2/5">{children}</div>
     </div>
   );
 };

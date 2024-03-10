@@ -34,3 +34,10 @@ export enum StartupStatus {
   PassedToFund = "Passed on to Fund",
   Rejected = "Rejected",
 }
+
+export interface Resource {
+  name: string;
+  description: string;
+  link: string;
+  category: string;
+}

@@ -55,7 +55,7 @@ export default function Tasks() {
                 onChange={(e) => {
                   setQuery(e.target.value);
                 }}
-                className="w-64 h-10 rounded-md border-2 p-2 text-sm placeholder:text-gray-400"
+                className="w-64 h-10 rounded-md border-[1px] p-2 text-sm placeholder:text-gray-400"
               />
             </div>
           </div>
@@ -67,7 +67,7 @@ export default function Tasks() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg border-gray-200 border-2">
+        <div className="bg-white rounded-lg border-gray-200 border-[1px]">
           <div className="flex flex-row w-full items-center px-8 py-3 bg-gray-100 text-md border-b-[1px] border-gray-200">
             <div className="w-1/3">Title</div>
             <div className="w-1/6">Member(s)</div>

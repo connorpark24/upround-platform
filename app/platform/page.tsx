@@ -20,7 +20,7 @@ export default function Dashboard() {
 
 function AnnouncementCard() {
   return (
-    <div className="w-full h-32 rounded-md border-2 border-gray-200 p-4">
+    <div className="w-full h-32 rounded-md border-[1px] border-gray-200 p-4">
       <p>Title</p>
       <p>Description</p>
     </div>
@@ -29,7 +29,7 @@ function AnnouncementCard() {
 
 function EventCard() {
   return (
-    <div className="w-full h-32 rounded-md border-2 border-gray-200 p-4">
+    <div className="w-full h-32 rounded-md border-[1px] border-gray-200 p-4">
       <p>Title</p>
       <p>Description</p>
     </div>

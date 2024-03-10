@@ -33,7 +33,7 @@ export default function Sidebar() {
                 Tasks
               </Link>
               <Link className="text-base" href="/platform/accelerator/timeline">
-                Timeline
+                Project Outline
               </Link>
             </div>
             <div className="flex flex-col gap-y-2">

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
+import Button from "@/components/Button";
 import supabase from "@/utils/supabaseClient";
 import { Startup } from "@/utils/types";
 
@@ -38,6 +39,7 @@ const getStatusColor = (status: string): string => {
 
 export default function StartupDatabase() {
   const [startups, setStartups] = useState<Startup[]>([]);
+  const [query, setQuery] = useState<string>("");
 
   useEffect(() => {
     const fetchStartups = async () => {
@@ -50,19 +52,81 @@ export default function StartupDatabase() {
   return (
     <div className="flex flex-col w-full h-full">
       <Header title="Startup Database" />
-      <div className="m-4 bg-white rounded-lg h-full border-gray-200 border-2">
-        <div className="flex flex-row h-14 items-center p-8 text-md border-b-[1px] border-gray-200">
-          <div className="w-1/6">Name</div>
-          <div className="w-1/6">Industry</div>
-          <div className="w-1/6">Status</div>
-          <div className="w-1/6">UMich Startup</div>
-          <div className="w-1/6">Source</div>
-          <div className="w-1/6">Extra Notes</div>
+      <div className="p-8">
+        <div className="w-full flex flex-row gap-x-8 mb-4 h-16">
+          <div>
+            <label htmlFor="email" className="block text-md font-medium mb-1">
+              Search
+            </label>
+            <div>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                }}
+                className="w-full h-10 rounded-md border-2 p-2 text-sm placeholder:text-gray-400"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="industry"
+              className="block text-md font-medium mb-1"
+            >
+              Industry
+            </label>
+            <select
+              id="industry"
+              name="industry"
+              className="w-full h-10 p-2 rounded-md border-2 items-center text-sm placeholder:text-gray-400"
+            >
+              <option value="">Select Industry</option>
+              <option value="Tech">Tech</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Finance">Finance</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="status" className="block text-md font-medium mb-1">
+              Status
+            </label>
+            <select
+              id="status"
+              name="status"
+              className="w-full h-10 rounded-md border-2 items-center text-sm p-2 placeholder:text-gray-400"
+            >
+              <option value="">Select Status</option>
+              {Object.values(Status).map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="self-end ml-auto">
+            <Button text={"Add Startup"} />
+          </div>
         </div>
-        <div>
-          {startups.map((row, index) => (
-            <TableRow key={index} startupData={row} />
-          ))}
+        <div className="rounded-lg border-gray-200 border-2">
+          <div className="flex flex-row h-14 items-center p-8 text-md border-b-[1px] border-gray-200">
+            <div className="w-1/6">Name</div>
+            <div className="w-1/6">Industry</div>
+            <div className="w-1/6">Status</div>
+            <div className="w-1/6">UMich Startup</div>
+            <div className="w-1/6">Source</div>
+            <div className="w-1/6">Extra Notes</div>
+          </div>
+          <div>
+            {startups.map((row, index) => (
+              <TableRow key={index} startupData={row} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -73,7 +137,7 @@ function TableRow({ startupData }: TableRowProps) {
   const statusColor = getStatusColor(startupData.status);
 
   return (
-    <div className="flex flex-row h-[3.5rem] items-center p-7 text-md border-b-[1px] border-gray-200">
+    <div className="flex flex-row h-[3.5rem] items-center p-8 text-md border-b-[1px] border-gray-200">
       <div className="w-1/6 pr-2">
         <a href={startupData.link} target="_blank" rel="noopener noreferrer">
           {startupData.name}

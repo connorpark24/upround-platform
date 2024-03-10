@@ -1,9 +1,17 @@
 "use client";
 import { useState } from "react";
+import supabase from "@/utils/supabaseClient";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  async function signInWithEmail() {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+  }
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -18,7 +26,9 @@ export default function Login() {
           className="space-y-6"
           action="#"
           method="POST"
-          onSubmit={(e) => {}}
+          onSubmit={(e) => {
+            signInWithEmail();
+          }}
         >
           <div>
             <label
@@ -35,6 +45,9 @@ export default function Login() {
                 autoComplete="email"
                 required
                 value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 className="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -57,6 +70,9 @@ export default function Login() {
                 autoComplete="current-password"
                 required
                 value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 className="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
               />
             </div>

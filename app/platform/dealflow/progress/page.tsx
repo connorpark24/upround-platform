@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import StartupCard from "@/components/StartupCard";
 
 type SampleData = {
   name: string;
@@ -34,11 +35,11 @@ export default function Progress() {
         <div className="w-2/3">
           <div className="mb-4 text-2xl font-medium pl-1">Startups Passed</div>
           <div className="grid grid-cols-3 gap-4">
-            <StartupPassed />
-            <StartupPassed />
-            <StartupPassed />
-            <StartupPassed />
-            <StartupPassed />
+            <StartupCard />
+            <StartupCard />
+            <StartupCard />
+            <StartupCard />
+            <StartupCard />
           </div>
         </div>
       </div>
@@ -46,33 +47,26 @@ export default function Progress() {
   );
 }
 
-function StartupPassed() {
-  return (
-    <div className="p-4 flex flex-col rounded-lg h-48 border-2 border-gray-200">
-      <div className="text-lg font-medium">Title</div>
-      <div className="text-base text-gray-400">Name</div>
-      <div className="text-base text-gray-400">Description</div>
-    </div>
-  );
-}
-
 function Leaderboard() {
   return (
-    <div className="bg-white rounded-lg h-full border-gray-200 border-2 w-full">
-      <div className="flex flex-row h-14 items-center p-8 text-md border-b-[1px] border-gray-200 text-lg">
+    <div className="bg-white rounded-lg border-gray-200 border-2 w-full">
+      <div className="flex flex-row h-14 items-center p-8 text-md border-b-[1px] border-gray-200 text-llg">
         <div className="w-1/2 font-medium text-base">Name</div>
         <div className="w-1/2 font-medium text-base">Startups Reached</div>
       </div>
       <div>
         {sampleData.map((row, index) => (
-          <TableRow key={index} leaderboardData={row} />
+          <LeaderboardRow key={index} leaderboardData={row} />
         ))}
-        <TableRow key={11} leaderboardData={{ name: "Total", count: 123 }} />
+        <LeaderboardRow
+          key={11}
+          leaderboardData={{ name: "Total", count: 123 }}
+        />
       </div>
     </div>
   );
 }
-function TableRow({ leaderboardData }: TableRowProps) {
+function LeaderboardRow({ leaderboardData }: TableRowProps) {
   return (
     <div className="flex flex-row h-12 items-center px-8 text-md border-b-[1px] border-gray-200 text-lg">
       <div className="w-1/2">{leaderboardData.name}</div>

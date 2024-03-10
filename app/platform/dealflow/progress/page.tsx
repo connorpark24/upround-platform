@@ -27,7 +27,7 @@ export default function Progress() {
   return (
     <div className="flex flex-col w-full h-full">
       <Header title="Progress" />
-      <div className="px-8 pt-4 flex flex-row w-full gap-x-10">
+      <div className="px-8 py-4 flex flex-row w-full gap-x-10">
         <div className="w-1/3">
           <div className="mb-4 text-xl font-medium pl-1">Leaderboard</div>
           <Leaderboard />

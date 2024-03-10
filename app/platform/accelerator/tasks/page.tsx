@@ -45,7 +45,7 @@ export default function Tasks() {
   return (
     <div className="flex flex-col w-full h-full">
       <Header title="Tasks" />
-      <div className="px-8 pt-4">
+      <div className="px-8 py-4">
         <div className="w-full flex flex-row gap-x-8 mb-8 h-16">
           <div>
             <label className="block text-md font-medium mb-1">Search</label>

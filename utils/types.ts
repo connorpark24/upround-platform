@@ -18,10 +18,19 @@ export type Startup = {
   source: string;
   notes: string;
   link: string;
-  date: Date;
+  dateSourced: Date | null;
 };
 
 export type Investor = {
   name: string;
   connect: string;
 };
+
+export enum StartupStatus {
+  Contacted = "Contacted",
+  Call = "Call",
+  MemoWritten = "Memo Written",
+  PassedToPartners = "Passed on to Partners",
+  PassedToFund = "Passed on to Fund",
+  Rejected = "Rejected",
+}

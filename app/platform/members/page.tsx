@@ -22,7 +22,7 @@ export default function Members() {
   return (
     <div className="flex flex-col w-full h-full">
       <Header title="Member Database" />
-      <div className="p-8">
+      <div className="px-8 py-4">
         <div className="bg-white rounded-lg h-full border-gray-200 border-2">
           <div className="flex flex-row w-full items-center px-8 py-3 bg-gray-100 text-md border-b-[1px] border-gray-200">
             <div className="w-1/6">Name</div>

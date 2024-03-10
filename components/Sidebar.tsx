@@ -8,7 +8,7 @@ export default function Sidebar() {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   return (
-    <div className="border-r-[3px] border-gray-100">
+    <div className="border-r-[1px] border-gray-300">
       {isOpen ? (
         <div className="w-60 flex flex-col p-6 min-h-screen">
           <button onClick={toggleSidebar} className="mb-6 h-8 w-8">

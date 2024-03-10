@@ -2,17 +2,9 @@
 import { useState, useEffect, ReactNode } from "react";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
+import StartupForm from "@/components/StartupForm";
 import supabase from "@/utils/supabaseClient";
-import { Startup } from "@/utils/types";
-
-enum Status {
-  Contacted = "Contacted",
-  Call = "Call",
-  MemoWritten = "Memo Written",
-  PassedToPartners = "Passed on to Partners",
-  PassedToFund = "Passed on to Fund",
-  Rejected = "Rejected",
-}
+import { Startup, StartupStatus } from "@/utils/types";
 
 const getStatusColor = (status: string): string => {
   switch (status) {
@@ -40,6 +32,17 @@ export default function StartupDatabase() {
   const [status, setStatus] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [startupName, setStartupName] = useState<string>("");
+  const [newStartup, setNewStartup] = useState<Startup>({
+    name: "",
+    memberId: 0,
+    industry: "",
+    status: "",
+    umichStartup: false,
+    source: "",
+    notes: "",
+    link: "",
+    dateSourced: null,
+  });
 
   useEffect(() => {
     const fetchStartups = async () => {
@@ -82,7 +85,7 @@ export default function StartupDatabase() {
   return (
     <div className="flex flex-col w-full h-full overflow-auto">
       <Header title="Startup Database" />
-      <div className="px-8 pt-4">
+      <div className="px-8 py-4">
         <div className="w-full flex flex-row gap-x-8 mb-6 h-16">
           <div>
             <label className="block text-md font-medium mb-1">Search</label>
@@ -92,7 +95,7 @@ export default function StartupDatabase() {
                 onChange={(e) => {
                   setQuery(e.target.value);
                 }}
-                className="w-72 h-10 rounded-md border-2 p-2 text-sm placeholder:text-gray-400"
+                className="w-72 rounded-md border-[1px] border-gray-300 p-2 py-1.5 text-sm placeholder:text-gray-400"
               />
             </div>
           </div>
@@ -107,7 +110,7 @@ export default function StartupDatabase() {
               id="industry"
               name="industry"
               onChange={(e) => setIndustry(e.target.value)}
-              className="w-full h-10 p-2 rounded-md border-2 items-center text-sm placeholder:text-gray-400"
+              className="w-full p-2 py-1.5  rounded-md border-[1px] border-gray-300 items-center text-sm placeholder:text-gray-400"
             >
               <option value="">Select Industry</option>
               <option value="Consumer + Food">Consumer + Food</option>
@@ -124,10 +127,10 @@ export default function StartupDatabase() {
               id="status"
               name="status"
               onChange={(e) => setStatus(e.target.value)}
-              className="w-full h-10 rounded-md border-2 items-center text-sm p-2 placeholder:text-gray-400"
+              className="w-full rounded-md border-[1px] border-gray-300 items-center text-sm p-2 py-1.5  placeholder:text-gray-400"
             >
               <option value="">Select Status</option>
-              {Object.values(Status).map((status) => (
+              {Object.values(StartupStatus).map((status) => (
                 <option key={status} value={status}>
                   {status}
                 </option>
@@ -137,34 +140,17 @@ export default function StartupDatabase() {
           <div className="self-end ml-auto">
             <Button text={"Add Startup"} onClick={() => setIsModalOpen(true)} />
           </div>
-          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-            <form onSubmit={handleAddStartup} className="space-y-4">
-              <div>
-                <label
-                  htmlFor="startupName"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Startup Name:
-                </label>
-                <input
-                  id="startupName"
-                  value={startupName}
-                  onChange={(e) => setStartupName(e.target.value)}
-                  required
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </div>
-              <button
-                type="submit"
-                className="bg-blue-500 text-white p-2 rounded-md"
-              >
-                Submit
-              </button>
-            </form>
+          <Modal isOpen={isModalOpen}>
+            <StartupForm
+              newStartup={newStartup}
+              setNewStartup={setNewStartup}
+              onSubmit={handleAddStartup}
+              onClose={() => setIsModalOpen(false)}
+            />
           </Modal>
         </div>
-        <div className="rounded-lg border-gray-200 border-2">
-          <div className="flex flex-row py-3 px-8 items-center text-md bg-gray-100 border-b-[1px] border-gray-200">
+        <div className="rounded-lg border-[1px] border-gray-300">
+          <div className="flex flex-row py-3 px-8 items-center text-md bg-gray-100 border-b-[1px] border-gray-200 rounded-t-lg">
             <div className="w-1/6">Name</div>
             <div className="w-1/6">Industry</div>
             <div className="w-1/6">Status</div>
@@ -212,24 +198,15 @@ const TableRow = ({ startupData }: TableRowProps) => {
 
 interface ModalProps {
   isOpen: boolean;
-  onClose: () => void;
   children: ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-25 z-50 flex justify-center items-center"
-      onClick={onClose}
-    >
-      <div className="bg-white p-4 rounded z-5">
-        <button onClick={onClose} className="float-right">
-          Close
-        </button>
-        {children}
-      </div>
+    <div className="fixed inset-0 bg-black bg-opacity-25 z-50 flex justify-center items-center">
+      <div className="bg-white rounded-md z-5 w-2/5">{children}</div>
     </div>
   );
 };

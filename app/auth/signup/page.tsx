@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import supabase from "@/utils/supabaseClient";
 
 export default function Signup() {
@@ -7,29 +8,24 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   async function signUpNewUser() {
     setLoading(true);
-    setError(null);
-    try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-      if (error) {
-        if (error.status === 429) {
-          setError("Too many requests. Please try again later.");
-        } else {
-          setError(error.message);
-        }
-      } else {
-        alert("Check your email for the confirmation link.");
-      }
-    } catch (e) {
-      setError("An unexpected error occurred.");
-    } finally {
-      setLoading(false);
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+    if (data) {
+      alert("Check your email for the confirmation link.");
+      router.push("/platform/enterInfo");
+    } else if (error) {
+      console.error(error.message);
+    } else {
+      alert("Check your email for the confirmation link.");
     }
+    setLoading(false);
   }
 
   return (
@@ -57,10 +53,8 @@ export default function Signup() {
                 autoComplete="email"
                 required
                 value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-                className="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                onChange={signUpNewUser}
+                className="block w-full rounded-md border-[1px] border-gray-200 p-2 text-gray-900 shadow-sm  placeholder:text-gray-400 "
               />
             </div>
           </div>
@@ -85,7 +79,7 @@ export default function Signup() {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-                className="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-[1px] border-gray-200 p-2 text-gray-900 shadow-sm placeholder:text-gray-400"
               />
             </div>
           </div>
@@ -93,7 +87,7 @@ export default function Signup() {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+              className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm"
             >
               Create Account
             </button>

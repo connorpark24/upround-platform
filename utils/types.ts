@@ -41,3 +41,9 @@ export interface Resource {
   link: string;
   category: string;
 }
+
+export enum Rank {
+  NewUser = 0,
+  Member = 1,
+  Board = 2,
+}

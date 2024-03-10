@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
 import supabase from "@/utils/supabaseClient";
@@ -39,6 +39,8 @@ export default function StartupDatabase() {
   const [industry, setIndustry] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [startupName, setStartupName] = useState<string>("");
 
   useEffect(() => {
     const fetchStartups = async () => {
@@ -74,24 +76,26 @@ export default function StartupDatabase() {
     fetchStartups();
   }, [query, industry, status]);
 
+  const handleAddStartup = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(startupName);
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="flex flex-col w-full h-full overflow-auto">
       <Header title="Startup Database" />
       <div className="p-8">
         <div className="w-full flex flex-row gap-x-8 mb-6 h-16">
           <div>
-            <label htmlFor="search" className="block text-md font-medium mb-1">
-              Search
-            </label>
+            <label className="block text-md font-medium mb-1">Search</label>
             <div>
               <input
-                id="search"
-                required
                 value={query}
                 onChange={(e) => {
                   setQuery(e.target.value);
                 }}
-                className="w-full h-10 rounded-md border-2 p-2 text-sm placeholder:text-gray-400"
+                className="w-72 h-10 rounded-md border-2 p-2 text-sm placeholder:text-gray-400"
               />
             </div>
           </div>
@@ -134,17 +138,41 @@ export default function StartupDatabase() {
             </select>
           </div>
           <div className="self-end ml-auto">
-            <Button text={"Add Startup"} />
+            <Button text={"Add Startup"} onClick={() => setIsModalOpen(true)} />
           </div>
+          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+            <form onSubmit={handleAddStartup} className="space-y-4">
+              <div>
+                <label
+                  htmlFor="startupName"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Startup Name:
+                </label>
+                <input
+                  id="startupName"
+                  value={startupName}
+                  onChange={(e) => setStartupName(e.target.value)}
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <button
+                type="submit"
+                className="bg-blue-500 text-white p-2 rounded-md"
+              >
+                Submit
+              </button>
+            </form>
+          </Modal>
         </div>
         <div className="rounded-lg border-gray-200 border-2">
           <div className="flex flex-row py-3 px-8 items-center text-md bg-gray-100 border-b-[1px] border-gray-200">
             <div className="w-1/6">Name</div>
             <div className="w-1/6">Industry</div>
             <div className="w-1/6">Status</div>
-            <div className="w-1/6">UMich Startup</div>
             <div className="w-1/6">Source</div>
-            <div className="w-1/6">Extra Notes</div>
+            <div className="w-1/3">Sourced By</div>
           </div>
           <div>
             {startups.map((row, index) => (
@@ -161,29 +189,50 @@ type TableRowProps = {
   startupData: Startup;
 };
 
-function TableRow({ startupData }: TableRowProps) {
+const TableRow = ({ startupData }: TableRowProps) => {
   const statusColor = getStatusColor(startupData.status);
 
   return (
-    <div className="flex flex-row h-[3.5rem] items-center p-8 text-md border-b-[1px] border-gray-200">
-      <div className="w-1/6 pr-2">
+    <div className="flex flex-row h-[2.5rem] items-center px-8 text-md border-b-[1px] border-gray-200">
+      <div className="w-1/6 pr-2 text-sm">
         <a href={startupData.link} target="_blank" rel="noopener noreferrer">
           {startupData.name}
         </a>
       </div>
-      <div className="w-1/6 pr-2">{startupData.industry}</div>
-      <div className="w-1/6 pr-2">
+      <div className="w-1/6 pr-2 text-sm">{startupData.industry}</div>
+      <div className="w-1/6 pr-2 text-sm">
         <span
-          className={`text-xs px-3.5 py-1.5 rounded-full text-white ${statusColor}`}
+          className={`text-xs px-3 py-1 rounded-full text-white ${statusColor}`}
         >
           {startupData.status}
         </span>
       </div>
-      <div className="w-1/6 pr-2">
-        {startupData.umichStartup ? "Yes" : "No"}
-      </div>
-      <div className="w-1/6 pr-2">{startupData.source}</div>
-      <div className="w-1/6 pr-2 text-sm">{startupData.notes}</div>
+      <div className="w-1/6 pr-2 text-sm">{startupData.source}</div>
+      <div className="w-1/3 pr-2 text-sm">{startupData.memberId}</div>
     </div>
   );
+};
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
 }
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div
+      className="fixed inset-0 bg-black bg-opacity-25 z-50 flex justify-center items-center"
+      onClick={onClose}
+    >
+      <div className="bg-white p-4 rounded z-5">
+        <button onClick={onClose} className="float-right">
+          Close
+        </button>
+        {children}
+      </div>
+    </div>
+  );
+};

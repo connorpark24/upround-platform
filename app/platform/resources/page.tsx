@@ -11,31 +11,32 @@ export default function Resources() {
     <div className="flex flex-col w-full h-full">
       <Header title="Resources" />
       <div className="flex flex-col gap-y-6 p-8">
-        <div className="w-full flex flex-row gap-x-8 mb-6 h-16">
+        <div className="w-full flex flex-row gap-x-8 mb-2 h-16">
           <div>
-            <label htmlFor="search" className="block text-md font-medium mb-1">
-              Search
-            </label>
+            <label className="block text-md font-medium mb-1">Search</label>
             <div>
               <input
-                id="search"
-                required
                 value={query}
                 onChange={(e) => {
                   setQuery(e.target.value);
                 }}
-                className="w-full h-10 rounded-md border-2 p-2 text-sm placeholder:text-gray-400"
+                className="w-64 h-10 rounded-md border-2 p-2 text-sm placeholder:text-gray-400"
               />
             </div>
           </div>
 
           <div className="self-end ml-auto">
-            <Button text={"Add Resource"} />
+            <Button
+              text={"Add Resource"}
+              onClick={() => console.log("Button clicked")}
+            />
           </div>
         </div>
         <div>
           <p className="text-xl mb-3">Accelerator</p>
           <div className="grid grid-cols-4 gap-8">
+            <ResourceTile />
+            <ResourceTile />
             <ResourceTile />
             <ResourceTile />
             <ResourceTile />
@@ -48,7 +49,6 @@ export default function Resources() {
             <ResourceTile />
             <ResourceTile />
             <ResourceTile />
-            <ResourceTile />
           </div>
         </div>
 
@@ -57,6 +57,8 @@ export default function Resources() {
           <div className="grid grid-cols-4 gap-8">
             <ResourceTile />
             <ResourceTile />
+            <ResourceTile /> <ResourceTile />
+            <ResourceTile /> <ResourceTile />
             <ResourceTile />
             <ResourceTile />
           </div>

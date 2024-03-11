@@ -6,39 +6,22 @@ import TaskForm from "@/components/TaskForm";
 import Modal from "@/components/Modal";
 import { Task } from "@/utils/types";
 
-type TaskData = {
-  title: string;
-  members: number[];
-  dueDate: Date;
-  status: string;
-  notes: string;
-};
-
-type TableRowProps = {
-  taskData: TaskData;
-};
-
-const sampleData: TaskData[] = [
+const sampleData: Task[] = [
   {
-    title: "Design Website Layout",
-    members: [1, 2],
-    dueDate: new Date("2023-05-15"),
+    id: 0,
+    name: "Design Website Layout",
+    members_assigned: [1, 2],
+    done_by: new Date("2023-05-15"),
     status: "In Progress",
-    notes: "Focus on user-friendly navigation",
+    description: "Focus on user-friendly navigation",
   },
   {
-    title: "Prepare Presentation Slides",
-    members: [3],
-    dueDate: new Date("2023-05-20"),
-    status: "Not Started",
-    notes: "Include project timeline and milestones",
-  },
-  {
-    title: "Conduct User Interviews",
-    members: [2, 4],
-    dueDate: new Date("2023-05-25"),
-    status: "Completed",
-    notes: "Compile interview notes and insights",
+    id: 1,
+    name: "Design Website Layout",
+    members_assigned: [1, 2],
+    done_by: new Date("2023-05-15"),
+    status: "In Progress",
+    description: "Focus on user-friendly navigation",
   },
 ];
 
@@ -46,10 +29,12 @@ export default function Tasks() {
   const [query, setQuery] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [newTask, setNewTask] = useState<Task>({
+    id: 1,
     name: "",
-    description: "",
-    done_by: new Date("2023-05-25"),
     members_assigned: [0],
+    done_by: new Date("2023-05-15"),
+    status: "In Progress",
+    description: "Focus on user-friendly navigation",
   });
 
   const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
@@ -96,26 +81,20 @@ export default function Tasks() {
             <div className="w-1/6">Status</div>
           </div>
           <div>
-            {sampleData.map((row, index) => (
-              <TableRow key={index} taskData={row} />
-            ))}
-            {sampleData.map((row, index) => (
-              <TableRow key={index} taskData={row} />
+            {sampleData.map((task, index) => (
+              <div
+                key={task.id}
+                className="flex flex-row items-center px-8 py-3 text-sm border-b-[1px] border-gray-200"
+              >
+                <div className="w-1/3">{task.name}</div>
+                <div className="w-1/6">{task.members_assigned[0]}</div>
+                <div className="w-1/6">{task.done_by.getDate()}</div>
+                <div className="w-1/6">{task.status}</div>
+              </div>
             ))}
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function TableRow({ taskData }: TableRowProps) {
-  return (
-    <div className="flex flex-row items-center px-8 py-3 text-sm border-b-[1px] border-gray-200">
-      <div className="w-1/3">{taskData.title}</div>
-      <div className="w-1/6">{taskData.members[0]}</div>
-      <div className="w-1/6">{taskData.dueDate.getDate()}</div>
-      <div className="w-1/6">{taskData.status}</div>
     </div>
   );
 }

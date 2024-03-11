@@ -38,6 +38,7 @@ export enum StartupStatus {
 }
 
 export interface Resource {
+  id: number;
   name: string;
   description: string;
   link: string;
@@ -45,10 +46,12 @@ export interface Resource {
 }
 
 export interface Task {
+  id: number;
   name: string;
   description: string;
   done_by: Date;
   members_assigned: number[];
+  status: string;
 }
 
 export enum Rank {

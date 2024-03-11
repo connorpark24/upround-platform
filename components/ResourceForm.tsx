@@ -17,7 +17,7 @@ const ResourceForm: React.FC<ResourceFormProps> = ({
   return (
     <form onSubmit={onSubmit} className="p-6">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
-        <div className="sm:col-span-3">
+        <div className="sm:col-span-4">
           <label
             htmlFor="name"
             className="block text-sm font-medium text-gray-700"
@@ -29,11 +29,52 @@ const ResourceForm: React.FC<ResourceFormProps> = ({
               type="text"
               name="name"
               id="name"
-              autoComplete="name"
               className="block p-1 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
               value={newResource.name}
               onChange={(e) =>
                 setNewResource({ ...newResource, name: e.target.value })
+              }
+            />
+          </div>
+        </div>
+
+        <div className="sm:col-span-4">
+          <label
+            htmlFor="category"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Category
+          </label>
+          <div className="mt-1">
+            <input
+              type="text"
+              name="category"
+              id="category"
+              className="block p-1 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
+              value={newResource.category}
+              onChange={(e) =>
+                setNewResource({ ...newResource, category: e.target.value })
+              }
+            />
+          </div>
+        </div>
+
+        <div className="sm:col-span-6">
+          <label
+            htmlFor="category"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Link to Resource
+          </label>
+          <div className="mt-1">
+            <input
+              type="text"
+              name="category"
+              id="category"
+              className="block p-1 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
+              value={newResource.category}
+              onChange={(e) =>
+                setNewResource({ ...newResource, category: e.target.value })
               }
             />
           </div>

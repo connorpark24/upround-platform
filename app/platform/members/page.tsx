@@ -4,10 +4,6 @@ import Header from "@/components/Header";
 import supabase from "@/utils/supabaseClient";
 import { Member } from "@/utils/types";
 
-type TableRowProps = {
-  memberData: Member;
-};
-
 export default function Members() {
   const [members, setMembers] = useState<Member[]>([]);
 
@@ -31,32 +27,33 @@ export default function Members() {
             <div className="w-1/6">Hometown</div>
           </div>
           <div>
-            {members.map((row, index) => (
-              <TableRow key={index} memberData={row} />
+            {members.map((member, index) => (
+              <div
+                key={member.id}
+                className="flex flex-row items-center px-8 py-2 text-sm border-b-[1px] border-gray-200"
+              >
+                <div className="w-1/6">
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {member.name}
+                  </a>
+                </div>
+                <div className="w-1/4 flex flex-col">
+                  <div>{member.email}</div>
+                  <div>{member.phone}</div>
+                </div>
+                <div className="w-1/4 pr-2">
+                  {member.major} {member.year}
+                </div>
+                <div className="w-1/6">{member.hometown}</div>
+              </div>
             ))}
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function TableRow({ memberData }: TableRowProps) {
-  return (
-    <div className="flex flex-row items-center px-8 py-2 text-sm border-b-[1px] border-gray-200">
-      <div className="w-1/6">
-        <a href={memberData.linkedin} target="_blank" rel="noopener noreferrer">
-          {memberData.name}
-        </a>
-      </div>
-      <div className="w-1/4 flex flex-col">
-        <div>{memberData.email}</div>
-        <div>{memberData.phone}</div>
-      </div>
-      <div className="w-1/4 pr-2">
-        {memberData.major} {memberData.year}
-      </div>
-      <div className="w-1/6">{memberData.hometown}</div>
     </div>
   );
 }

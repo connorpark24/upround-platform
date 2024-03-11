@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import Modal from "@/components/Modal";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
@@ -28,7 +29,7 @@ export default function Resources() {
       <div className="flex flex-col px-8 py-4">
         <div className="w-full flex flex-row gap-x-8 mb-8 h-16">
           <div>
-            <label className="block text-md font-medium mb-1">Search</label>
+            <label className="block text-md mb-1">Search</label>
             <div>
               <input
                 value={query}
@@ -44,6 +45,7 @@ export default function Resources() {
             <Button
               text={"Add Resource"}
               onClick={() => setIsModalOpen(true)}
+              icon={<PlusCircleIcon />}
             />
           </div>
           <Modal isOpen={isModalOpen}>

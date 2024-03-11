@@ -6,6 +6,7 @@ import StartupForm from "@/components/StartupForm";
 import Modal from "@/components/Modal";
 import supabase from "@/utils/supabaseClient";
 import { Startup, StartupStatus } from "@/utils/types";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/20/solid";
 
 const getStatusColor = (status: string): string => {
   switch (status) {
@@ -32,16 +33,20 @@ export default function StartupDatabase() {
   const [industry, setIndustry] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [startupToDelete, setStartupToDelete] = useState<Startup | null>(null);
+  const [expandedRowId, setExpandedRowId] = useState<number | null>(null);
   const [newStartup, setNewStartup] = useState<Startup>({
+    id: null,
     name: "",
-    memberId: 0,
+    member_id: 0,
     industry: "",
     status: "",
-    umichStartup: false,
+    umich_startup: false,
     source: "",
     notes: "",
     link: "",
-    dateSourced: null,
+    date_sourced: null,
   });
 
   useEffect(() => {
@@ -76,16 +81,63 @@ export default function StartupDatabase() {
     fetchStartups();
   }, [query, industry, status]);
 
-  const handleAddStartup = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddStartup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(newStartup.name);
+    const { data, error } = await supabase
+      .from("startups")
+      .insert([newStartup]);
+
+    if (error) {
+      console.error("There was an error inserting the data", error);
+      return;
+    }
+
+    if (data) {
+      setStartups((currentStartups) => [...currentStartups, ...data]);
+    }
+
+    setNewStartup({
+      id: null,
+      name: "",
+      member_id: 0,
+      industry: "",
+      status: "",
+      umich_startup: false,
+      source: "",
+      notes: "",
+      link: "",
+      date_sourced: null,
+    });
+
     setIsModalOpen(false);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!startupToDelete) return;
+
+    console.log(startupToDelete.id);
+
+    let { error } = await supabase
+      .from("startups")
+      .delete()
+      .eq("id", startupToDelete.id);
+
+    if (error) {
+      console.error("Error deleting startup:", error);
+    } else {
+      setStartups(
+        startups.filter((startup) => startup.id !== startupToDelete.id)
+      );
+      setStartupToDelete(null);
+    }
+
+    setIsDeleteModalOpen(false);
   };
 
   return (
     <div className="flex flex-col w-full h-full overflow-auto">
       <Header title="Startup Database" />
-      <div className="px-8 py-4">
+      <div className="px-8 pt-4 pb-8">
         <div className="w-full flex flex-row gap-x-8 mb-6 h-16">
           <div>
             <label className="block text-md font-medium mb-1">Search</label>
@@ -148,9 +200,14 @@ export default function StartupDatabase() {
               onClose={() => setIsModalOpen(false)}
             />
           </Modal>
+          <DeleteConfirmationModal
+            isOpen={isDeleteModalOpen}
+            onClose={() => setIsDeleteModalOpen(false)}
+            onConfirm={handleConfirmDelete}
+          />
         </div>
         <div className="rounded-lg border-[1px] border-gray-300">
-          <div className="flex flex-row py-3 px-8 items-center text-md bg-gray-100 border-b-[1px] border-gray-200 rounded-t-lg">
+          <div className="flex flex-row py-3 px-8 items-center text-sm bg-gray-100 border-b-[1px] border-gray-200 rounded-t-lg">
             <div className="w-1/6">Name</div>
             <div className="w-1/6">Industry</div>
             <div className="w-1/6">Status</div>
@@ -158,8 +215,19 @@ export default function StartupDatabase() {
             <div className="w-1/3">Sourced By</div>
           </div>
           <div>
-            {startups.map((row, index) => (
-              <TableRow key={index} startupData={row} />
+            {startups.map((startup, index) => (
+              <TableRow
+                key={index}
+                startupData={startup}
+                isExpanded={expandedRowId === startup.id}
+                onClick={() =>
+                  setExpandedRowId(
+                    expandedRowId === startup.id ? null : startup.id
+                  )
+                }
+                setStartupToDelete={() => setStartupToDelete(startup)}
+                setIsDeleteModalOpen={setIsDeleteModalOpen}
+              />
             ))}
           </div>
         </div>
@@ -168,30 +236,95 @@ export default function StartupDatabase() {
   );
 }
 
-type TableRowProps = {
+interface TableRowProps {
   startupData: Startup;
-};
+  isExpanded: boolean;
+  onClick: () => void;
+  setStartupToDelete: (startup: Startup) => void;
+  setIsDeleteModalOpen: (isOpen: boolean) => void;
+}
 
-const TableRow = ({ startupData }: TableRowProps) => {
+const TableRow = ({
+  startupData,
+  isExpanded,
+  onClick,
+  setStartupToDelete,
+  setIsDeleteModalOpen,
+}: TableRowProps) => {
   const statusColor = getStatusColor(startupData.status);
 
   return (
-    <div className="flex flex-row h-[2.5rem] items-center px-8 text-md border-b-[1px] border-gray-200">
-      <div className="w-1/6 pr-2 text-sm">
-        <a href={startupData.link} target="_blank" rel="noopener noreferrer">
-          {startupData.name}
-        </a>
+    <>
+      <div
+        className="flex flex-row h-[2.5rem] items-center px-8 text-md border-b-[1px] border-gray-200 hover:bg-gray-100 cursor-pointer"
+        onClick={onClick}
+      >
+        <div className="w-1/6 pr-2 text-sm">
+          <a href={startupData.link} target="_blank" rel="noopener noreferrer">
+            {startupData.name}
+          </a>
+        </div>
+        <div className="w-1/6 pr-2 text-sm">{startupData.industry}</div>
+        <div className="w-1/6 pr-2 text-sm">
+          <span
+            className={`text-xs px-3 py-1 rounded-full text-white ${statusColor}`}
+          >
+            {startupData.status}
+          </span>
+        </div>
+        <div className="w-1/6 pr-2 text-sm">{startupData.source}</div>
+        <div className="w-1/3 pr-2 text-sm">{startupData.member_id}</div>
       </div>
-      <div className="w-1/6 pr-2 text-sm">{startupData.industry}</div>
-      <div className="w-1/6 pr-2 text-sm">
-        <span
-          className={`text-xs px-3 py-1 rounded-full text-white ${statusColor}`}
-        >
-          {startupData.status}
-        </span>
+      {isExpanded && (
+        <div className="flex justify-between items-center px-8 text-sm border-b-[1px] border-gray-200">
+          <div className="w-full py-2">
+            <p>
+              {startupData.notes ? startupData.notes : "No notes available"}
+            </p>
+          </div>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setStartupToDelete(startupData);
+              setIsDeleteModalOpen(true);
+            }}
+            className="text-red-500 hover:text-red-700"
+          >
+            <TrashIcon className="h-5 w-5" />
+          </button>
+        </div>
+      )}
+    </>
+  );
+};
+
+interface DeleteConfirmationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+}
+
+const DeleteConfirmationModal = ({
+  isOpen,
+  onClose,
+  onConfirm,
+}: DeleteConfirmationModalProps) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <div className="bg-white p-6 rounded shadow">
+        <h2>Are you sure you want to delete?</h2>
+        <div className="flex justify-end space-x-4 mt-4">
+          <button onClick={onClose}>Cancel</button>
+          <button
+            onClick={onConfirm}
+            className="text-white bg-red-500 rounded-md px-3.5 py-1.5"
+          >
+            Delete
+          </button>
+        </div>
       </div>
-      <div className="w-1/6 pr-2 text-sm">{startupData.source}</div>
-      <div className="w-1/3 pr-2 text-sm">{startupData.memberId}</div>
     </div>
   );
 };

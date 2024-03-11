@@ -2,6 +2,9 @@
 import { useState } from "react";
 import Button from "@/components/Button";
 import Header from "@/components/Header";
+import TaskForm from "@/components/TaskForm";
+import Modal from "@/components/Modal";
+import { Task } from "@/utils/types";
 
 type TaskData = {
   title: string;
@@ -41,11 +44,24 @@ const sampleData: TaskData[] = [
 
 export default function Tasks() {
   const [query, setQuery] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [newTask, setNewTask] = useState<Task>({
+    name: "",
+    description: "",
+    done_by: new Date("2023-05-25"),
+    members_assigned: [0],
+  });
+
+  const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(newTask.name);
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="flex flex-col w-full h-full">
       <Header title="Tasks" />
-      <div className="px-8 py-4">
+      <div className="px-8 pt-4 pb-8">
         <div className="w-full flex flex-row gap-x-8 mb-8 h-16">
           <div>
             <label className="block text-md font-medium mb-1">Search</label>
@@ -60,15 +76,20 @@ export default function Tasks() {
             </div>
           </div>
           <div className="self-end ml-auto">
-            <Button
-              text={"Add Task"}
-              onClick={() => console.log("Button clicked")}
-            />
+            <Button text={"Add Task"} onClick={() => setIsModalOpen(true)} />
           </div>
+          <Modal isOpen={isModalOpen}>
+            <TaskForm
+              newTask={newTask}
+              setNewTask={setNewTask}
+              onSubmit={handleAddTask}
+              onClose={() => setIsModalOpen(false)}
+            />
+          </Modal>
         </div>
 
         <div className="bg-white rounded-lg border-gray-200 border-[1px]">
-          <div className="flex flex-row w-full items-center px-8 py-3 bg-gray-100 text-md border-b-[1px] border-gray-200">
+          <div className="flex flex-row w-full items-center px-8 py-3 bg-gray-100 text-sm border-b-[1px] border-gray-200">
             <div className="w-1/3">Title</div>
             <div className="w-1/6">Member(s)</div>
             <div className="w-1/6">Done By</div>

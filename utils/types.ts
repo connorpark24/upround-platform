@@ -1,4 +1,5 @@
 export type Member = {
+  id: number;
   name: string;
   linkedin: string;
   email: string;
@@ -10,15 +11,16 @@ export type Member = {
 };
 
 export type Startup = {
+  id: number | null;
   name: string;
-  memberId: number;
+  member_id: number;
   industry: string;
   status: string;
-  umichStartup: boolean;
+  umich_startup: boolean;
   source: string;
   notes: string;
   link: string;
-  dateSourced: Date | null;
+  date_sourced: Date | null;
 };
 
 export type Investor = {
@@ -40,6 +42,13 @@ export interface Resource {
   description: string;
   link: string;
   category: string;
+}
+
+export interface Task {
+  name: string;
+  description: string;
+  done_by: Date;
+  members_assigned: number[];
 }
 
 export enum Rank {

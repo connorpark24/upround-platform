@@ -1,10 +1,14 @@
+"use client";
 import Header from "@/components/Header";
+import { useSupabase } from "@/utils/supabaseContext";
 
 export default function Dashboard() {
+  const { user } = useSupabase();
+
   return (
     <div className="flex flex-col w-full h-full">
       <Header title="Dashboard" />
-      <div className="p-8 flex flex-row">
+      <div className="px-8 py-4 flex flex-row">
         <div className="w-3/5 pr-8">
           <p className="text-xl mb-4">Annoucements</p>
           <AnnouncementCard />
@@ -14,6 +18,7 @@ export default function Dashboard() {
           <EventCard />
         </div>
       </div>
+      <div>{user?.email}</div>
     </div>
   );
 }

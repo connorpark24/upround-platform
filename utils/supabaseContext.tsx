@@ -1,4 +1,4 @@
-// context/SupabaseContext.tsx
+"use client";
 import {
   createContext,
   useContext,

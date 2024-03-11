@@ -14,24 +14,24 @@ export default function Signup() {
     setLoading(true);
 
     const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
+      email: email,
+      password: password,
     });
     if (data) {
+      console.log(data);
       alert("Check your email for the confirmation link.");
-      router.push("/platform/enterInfo");
+      router.push("/platform/onboarding");
     } else if (error) {
       console.error(error.message);
-    } else {
-      alert("Check your email for the confirmation link.");
     }
+    console.log(data);
     setLoading(false);
   }
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <h2 className="mt-10 text-center text-2xl font-semibold leading-9 tracking-tight text-gray-900">
           Create Account
         </h2>
       </div>
@@ -53,8 +53,8 @@ export default function Signup() {
                 autoComplete="email"
                 required
                 value={email}
-                onChange={signUpNewUser}
-                className="block w-full rounded-md border-[1px] border-gray-200 p-2 text-gray-900 shadow-sm  placeholder:text-gray-400 "
+                onChange={(e) => setEmail(e.target.value)}
+                className="block w-full text-sm rounded-md border-[1px] border-gray-200 p-2 text-gray-900 shadow-sm placeholder:text-gray-400 "
               />
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function Signup() {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-                className="block w-full rounded-md border-[1px] border-gray-200 p-2 text-gray-900 shadow-sm placeholder:text-gray-400"
+                className="block w-full text-sm rounded-md border-[1px] border-gray-200 p-2 text-gray-900 shadow-sm placeholder:text-gray-400"
               />
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function Signup() {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm"
+              className="flex w-full justify-center rounded-md bg-green-600 px-3 py-2.5 text-sm font-semibold  text-white shadow-sm"
             >
               Create Account
             </button>

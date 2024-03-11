@@ -24,7 +24,7 @@ export default function Members() {
       <Header title="Member Database" />
       <div className="px-8 py-4">
         <div className="bg-white rounded-lg h-full border-gray-200 border-[1px]">
-          <div className="flex flex-row w-full items-center px-8 py-3 bg-gray-100 text-md border-b-[1px] border-gray-200">
+          <div className="flex flex-row w-full items-center px-8 py-3 bg-gray-100 text-sm border-b-[1px] border-gray-200">
             <div className="w-1/6">Name</div>
             <div className="w-1/4">Contact</div>
             <div className="w-1/4">Major</div>

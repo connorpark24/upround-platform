@@ -1,16 +1,16 @@
 "use client";
-import { Resource } from "@/utils/types";
+import { Task } from "@/utils/types";
 
-type ResourceFormProps = {
-  newResource: Resource;
-  setNewResource: React.Dispatch<React.SetStateAction<Resource>>;
+type TaskFormProps = {
+  newTask: Task;
+  setNewTask: React.Dispatch<React.SetStateAction<Task>>;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   onClose: () => void;
 };
 
-const ResourceForm: React.FC<ResourceFormProps> = ({
-  newResource,
-  setNewResource,
+const TaskForm: React.FC<TaskFormProps> = ({
+  newTask,
+  setNewTask,
   onSubmit,
   onClose,
 }) => {
@@ -22,7 +22,7 @@ const ResourceForm: React.FC<ResourceFormProps> = ({
             htmlFor="name"
             className="block text-sm font-medium text-gray-700"
           >
-            Resource Name
+            Task Name
           </label>
           <div className="mt-1">
             <input
@@ -31,10 +31,8 @@ const ResourceForm: React.FC<ResourceFormProps> = ({
               id="name"
               autoComplete="name"
               className="block p-1 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newResource.name}
-              onChange={(e) =>
-                setNewResource({ ...newResource, name: e.target.value })
-              }
+              value={newTask.name}
+              onChange={(e) => setNewTask({ ...newTask, name: e.target.value })}
             />
           </div>
         </div>
@@ -51,9 +49,9 @@ const ResourceForm: React.FC<ResourceFormProps> = ({
               id="notes"
               name="notes"
               className="block p-1 w-full max-h-24 rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newResource.description}
+              value={newTask.description}
               onChange={(e) =>
-                setNewResource({ ...newResource, description: e.target.value })
+                setNewTask({ ...newTask, description: e.target.value })
               }
               rows={2}
             />
@@ -80,4 +78,4 @@ const ResourceForm: React.FC<ResourceFormProps> = ({
   );
 };
 
-export default ResourceForm;
+export default TaskForm;

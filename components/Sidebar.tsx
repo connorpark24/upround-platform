@@ -8,63 +8,82 @@ export default function Sidebar() {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   return (
-    <div className="border-r-[1px] border-gray-300">
+    <div className="border-r-[1px] border-gray-30 min-h-screen">
       {isOpen ? (
-        <div className="w-60 flex flex-col p-6 min-h-screen">
-          <button onClick={toggleSidebar} className="mb-6 h-8 w-8">
+        <div className="w-60 flex flex-col h-full p-3">
+          <button onClick={toggleSidebar} className="p-3">
             <ChevronLeftIcon className="w-6 h-6" />
           </button>
-          <div className="flex flex-col gap-y-9">
-            <div className="flex flex-col gap-y-2">
-              <div className="text-gray-400 text-sm">Home</div>
-              <Link className="text-base" href="/platform/">
+          <div className="flex flex-col gap-y-9 mt-8">
+            <div className="flex flex-col">
+              <div className="text-gray-400 text-sm px-2 mb-1">Home</div>
+              <Link
+                className="text-base px-2 py-1.5 hover:bg-gray-100 rounded-md"
+                href="/platform/"
+              >
                 Dashboard
               </Link>
-              <Link className="text-base" href="/platform/members">
+              <Link
+                className="text-base px-2 py-1 hover:bg-gray-100 rounded-md"
+                href="/platform/members"
+              >
                 Members
               </Link>
-              <Link className="text-base" href="/platform/resources">
+              <Link
+                className="text-base px-2 py-1 hover:bg-gray-100 rounded-md"
+                href="/platform/resources"
+              >
                 Resources
               </Link>
             </div>
-            <div className="flex flex-col gap-y-2">
-              <div className="text-gray-400 text-sm">Accelerator</div>
-              <Link className="text-base" href="/platform/accelerator/tasks">
+            <div className="flex flex-col">
+              <div className="text-gray-400 text-sm px-2 mb-1">Accelerator</div>
+              <Link
+                className="text-base px-2 py-1 hover:bg-gray-100 rounded-md"
+                href="/platform/accelerator/tasks"
+              >
                 Tasks
               </Link>
-              <Link className="text-base" href="/platform/accelerator/timeline">
+              <Link
+                className="text-base px-2 py-1 hover:bg-gray-100 rounded-md"
+                href="/platform/accelerator/timeline"
+              >
                 Project Outline
               </Link>
             </div>
-            <div className="flex flex-col gap-y-2">
-              <div className="text-gray-400 text-sm">Dealflow</div>
+            <div className="flex flex-col">
+              <div className="text-gray-400 text-sm px-2 mb-1">Dealflow</div>
               <Link
-                className="text-base"
+                className="text-base hover:bg-gray-100 px-2 py-1 rounded-md"
                 href="/platform/dealflow/startup-database"
               >
                 Startup Database
               </Link>
-              <Link className="text-base" href="/platform/dealflow/progress">
+              <Link
+                className="text-base px-2 py-1 hover:bg-gray-100"
+                href="/platform/dealflow/progress"
+              >
                 Progress
               </Link>
             </div>
-            <div className="flex flex-col gap-y-2">
-              <div className="text-gray-400 text-sm">Fund</div>
-              <Link className="text-base" href="/platform/startup-board">
+            <div className="flex flex-col">
+              <div className="text-gray-400 text-sm px-2 mb-1">Fund</div>
+              <Link
+                className="text-base px-2 py-1 hover:bg-gray-100"
+                href="/platform/startup-board"
+              >
                 Startup Board
               </Link>
             </div>
           </div>
-          <div className="mt-auto text-base">
-            <div className="flex flex-col gap-y-2 ">
-              <Link className="text-base" href="/platform/settings">
-                Settings
-              </Link>
-            </div>
+          <div className="mt-auto px-2 hover:bg-gray-100 mb-3">
+            <Link className="text-base" href="/platform/settings">
+              Settings
+            </Link>
           </div>
         </div>
       ) : (
-        <div className="w-16 flex flex-col items-center pt-6 gap-y-2 min-h-screen">
+        <div className="w-16 flex flex-col items-center min-h-screen pt-6">
           <button onClick={toggleSidebar}>
             <ChevronRightIcon className="w-6 h-6" />
           </button>

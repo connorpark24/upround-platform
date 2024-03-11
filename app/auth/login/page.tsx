@@ -24,7 +24,7 @@ export default function Login() {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <h2 className="mt-10 text-center text-2xl font-semibold leading-9 tracking-tight text-gray-900">
           Log in to Account
         </h2>
       </div>
@@ -54,7 +54,7 @@ export default function Login() {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                className="block w-full rounded-md p-2 text-gray-900 shadow-sm  placeholder:text-gray-400 border-[1px] border-gray-200"
+                className="block w-full text-sm rounded-md p-2 text-gray-900  placeholder:text-gray-400 border-[1px] border-gray-200"
               />
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function Login() {
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
-                className="block w-full rounded-md p-2 text-gray-900 shadow-sm  placeholder:text-gray-400 border-[1px] border-gray-200"
+                className="block w-full text-sm rounded-md p-2 text-gray-900  placeholder:text-gray-400 border-[1px] border-gray-200"
               />
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function Login() {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm"
+              className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-2.5 text-sm font-semibold text-white shadow-sm"
             >
               Log in
             </button>

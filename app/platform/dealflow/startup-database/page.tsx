@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 import StartupForm from "@/components/StartupForm";
 import Modal from "@/components/Modal";
-import supabase from "@/utils/supabaseClient";
+import supabase from "@/utils/supabaseBrowserClient";
 import { Startup, StartupStatus } from "@/utils/types";
 
 const getStatusColor = (status: string): string => {

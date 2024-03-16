@@ -1,4 +1,3 @@
-"use client";
 import {
   createContext,
   useContext,
@@ -7,7 +6,7 @@ import {
   ReactNode,
 } from "react";
 import { Session, User } from "@supabase/supabase-js";
-import supabase from "../utils/supabaseClient";
+import { createSupabaseBrowserClient } from "../utils/supabaseBrowserClient";
 
 export interface SupabaseContextType {
   session: Session | null;
@@ -21,16 +20,24 @@ const SupabaseContext = createContext<SupabaseContextType | undefined>(
 interface SupabaseProviderProps {
   children: ReactNode;
 }
-export function SupabaseProvider({ children }: SupabaseProviderProps) {
+
+function SupabaseProvider({ children }: SupabaseProviderProps) {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
 
+  const supabase = createSupabaseBrowserClient();
+
   useEffect(() => {
     const fetchSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      setSession(data.session);
-      setUser(data.session?.user ?? null);
+      const { data: sessionData, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error("Error fetching session:", error.message);
+        return;
+      }
+      setSession(sessionData.session);
+      setUser(sessionData.session?.user ?? null);
     };
+
     fetchSession();
 
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
@@ -55,10 +62,4 @@ export function SupabaseProvider({ children }: SupabaseProviderProps) {
   );
 }
 
-export function useSupabase() {
-  const context = useContext(SupabaseContext);
-  if (context === undefined) {
-    throw new Error("useSupabase must be used within a SupabaseProvider");
-  }
-  return context;
-}
+export { SupabaseContext, SupabaseProvider };

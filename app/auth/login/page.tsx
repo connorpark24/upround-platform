@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import supabase from "@/utils/supabaseClient";
+import supabase from "@/utils/supabaseBrowserClient";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -9,9 +9,14 @@ export default function Login() {
   const router = useRouter();
 
   async function signInWithEmail() {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        queryParams: {
+          access_type: "offline",
+          prompt: "consent",
+        },
+      },
     });
 
     if (data) {

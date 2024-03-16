@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 import ResourceForm from "@/components/ResourceForm";
 import { Resource } from "@/utils/types";
-import supabase from "@/utils/supabaseClient";
+import supabase from "@/utils/supabaseBrowserClient";
 
 export default function Resources() {
   const [query, setQuery] = useState("");

@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Modal from "@/components/Modal";
 import PostForm from "@/components/PostForm";
 import Button from "@/components/Button";
-import supabase from "@/utils/supabaseClient";
+import supabase from "@/utils/supabaseBrowserClient";
 import { Post } from "@/utils/types";
 
 export default function Dashboard() {

@@ -23,20 +23,6 @@ export type Startup = {
   date_sourced: Date | null;
 };
 
-export type Investor = {
-  name: string;
-  connect: string;
-};
-
-export enum StartupStatus {
-  Contacted = "Contacted",
-  Call = "Call",
-  MemoWritten = "Memo Written",
-  PassedToPartners = "Passed on to Partners",
-  PassedToFund = "Passed on to Fund",
-  Rejected = "Rejected",
-}
-
 export interface Resource {
   id: number;
   name: string;
@@ -52,6 +38,29 @@ export interface Task {
   done_by: Date;
   members_assigned: number[];
   status: string;
+}
+
+export type Investor = {
+  id: number;
+  name: string;
+  connect: string;
+};
+
+export type Post = {
+  id?: number;
+  title: string;
+  description: string;
+  link_to_resource: string;
+  author?: number;
+};
+
+export enum StartupStatus {
+  Contacted = "Contacted",
+  Call = "Call",
+  MemoWritten = "Memo Written",
+  PassedToPartners = "Passed on to Partners",
+  PassedToFund = "Passed on to Fund",
+  Rejected = "Rejected",
 }
 
 export enum Rank {

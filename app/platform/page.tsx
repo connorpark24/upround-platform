@@ -5,10 +5,12 @@ import Header from "@/components/Header";
 import Modal from "@/components/Modal";
 import PostForm from "@/components/PostForm";
 import Button from "@/components/Button";
-import supabase from "@/utils/supabaseBrowserClient";
+import { createSupabaseBrowserClient } from "@/utils/supabaseBrowserClient";
 import { Post } from "@/utils/types";
 
 export default function Dashboard() {
+  const supabase = createSupabaseBrowserClient();
+
   const [posts, setPosts] = useState<Post[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [newPost, setNewPost] = useState<Post>({

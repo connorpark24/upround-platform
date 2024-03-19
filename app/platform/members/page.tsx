@@ -1,11 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import supabase from "@/utils/supabaseBrowserClient";
 import { Member } from "@/utils/types";
+import useSupabase from "@/hooks/useSupabase";
 
 export default function Members() {
   const [members, setMembers] = useState<Member[]>([]);
+
+  const { supabase } = useSupabase();
 
   useEffect(() => {
     const fetchStartups = async () => {

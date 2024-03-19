@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
-import { useSupabase } from "@/utils/supabaseContext";
+import useSupabase from "@/hooks/useSupabase";
 
 interface ProtectedRouteProps {
   children: ReactNode;

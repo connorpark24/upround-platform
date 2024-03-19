@@ -1,22 +1,19 @@
 "use client";
 import { createContext, useEffect, useState, ReactNode } from "react";
-import { Session, User } from "@supabase/supabase-js";
-import { createSupabaseBrowserClient } from "../utils/supabaseBrowserClient";
+import { SupabaseClient, Session, User } from "@supabase/supabase-js";
+import { createSupabaseBrowserClient } from "@/utils/supabaseBrowserClient";
 
 export interface SupabaseContextType {
   session: Session | null;
   user: User | null;
+  supabase: SupabaseClient;
 }
 
 const SupabaseContext = createContext<SupabaseContextType | undefined>(
   undefined
 );
 
-interface SupabaseProviderProps {
-  children: ReactNode;
-}
-
-function SupabaseProvider({ children }: SupabaseProviderProps) {
+function SupabaseProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
 
@@ -43,9 +40,10 @@ function SupabaseProvider({ children }: SupabaseProviderProps) {
     return () => {
       data.subscription?.unsubscribe();
     };
-  }, []);
+  });
 
   const value = {
+    supabase,
     session,
     user,
   };

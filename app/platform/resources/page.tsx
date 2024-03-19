@@ -6,9 +6,11 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 import ResourceForm from "@/components/ResourceForm";
 import { Resource } from "@/utils/types";
-import supabase from "@/utils/supabaseBrowserClient";
+import useSupabase from "@/hooks/useSupabase";
 
 export default function Resources() {
+  const { supabase } = useSupabase();
+
   const [query, setQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newResource, setNewResource] = useState<Resource>({

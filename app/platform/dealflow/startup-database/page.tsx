@@ -6,8 +6,8 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 import StartupForm from "@/components/StartupForm";
 import Modal from "@/components/Modal";
-import supabase from "@/utils/supabaseBrowserClient";
 import { Startup, StartupStatus } from "@/utils/types";
+import useSupabase from "@/hooks/useSupabase";
 
 const getStatusColor = (status: string): string => {
   switch (status) {
@@ -29,6 +29,8 @@ const getStatusColor = (status: string): string => {
 };
 
 export default function StartupDatabase() {
+  const { supabase } = useSupabase();
+
   const [startups, setStartups] = useState<Startup[]>([]);
   const [query, setQuery] = useState<string>("");
   const [industry, setIndustry] = useState<string>("");

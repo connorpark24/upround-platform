@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "../globals.css";
 import { Inter } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
-import { SupabaseProvider } from "@/utils/supabaseContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 const inter = Inter({ subsets: ["latin"] });

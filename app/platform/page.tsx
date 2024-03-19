@@ -5,10 +5,12 @@ import Header from "@/components/Header";
 import Modal from "@/components/Modal";
 import PostForm from "@/components/PostForm";
 import Button from "@/components/Button";
+import useSupabase from "@/hooks/useSupabase";
 import { createSupabaseBrowserClient } from "@/utils/supabaseBrowserClient";
 import { Post } from "@/utils/types";
 
 export default function Dashboard() {
+  const { user } = useSupabase();
   const supabase = createSupabaseBrowserClient();
 
   const [posts, setPosts] = useState<Post[]>([]);
@@ -29,7 +31,7 @@ export default function Dashboard() {
       }
     };
     fetchPosts();
-  }, []);
+  });
 
   const handleAddPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

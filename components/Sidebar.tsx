@@ -44,12 +44,6 @@ export default function Sidebar() {
               >
                 Tasks
               </Link>
-              <Link
-                className="text-base px-2 py-1 hover:bg-gray-100 rounded-md"
-                href="/platform/accelerator/timeline"
-              >
-                Project Outline
-              </Link>
             </div>
             <div className="flex flex-col">
               <div className="text-gray-400 text-sm px-2 mb-1">Dealflow</div>
@@ -60,7 +54,7 @@ export default function Sidebar() {
                 Startup Database
               </Link>
               <Link
-                className="text-base px-2 py-1 hover:bg-gray-100"
+                className="text-base px-2 py-1 hover:bg-gray-100 rounded-md"
                 href="/platform/dealflow/progress"
               >
                 Progress
@@ -69,15 +63,24 @@ export default function Sidebar() {
             <div className="flex flex-col">
               <div className="text-gray-400 text-sm px-2 mb-1">Fund</div>
               <Link
-                className="text-base px-2 py-1 hover:bg-gray-100"
-                href="/platform/startup-board"
+                className="text-base px-2 py-1 hover:bg-gray-100 rounded-md"
+                href="/platform/fund/startup-board"
               >
                 Startup Board
               </Link>
             </div>
           </div>
-          <div className="mt-auto px-2 hover:bg-gray-100 mb-3">
-            <Link className="text-base" href="/platform/settings">
+          <div className="flex flex-col mt-auto mb-3">
+            <Link
+              className="text-base px-2 py-1 hover:bg-gray-100 rounded-md"
+              href="/platform/profile"
+            >
+              Profile
+            </Link>
+            <Link
+              className="text-base px-2 py-1 hover:bg-gray-100"
+              href="/platform/settings"
+            >
               Settings
             </Link>
           </div>

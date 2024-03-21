@@ -10,6 +10,11 @@ export type Member = {
   hometown: string;
 };
 
+export type User = {
+  id: number;
+  name: string;
+};
+
 export type Startup = {
   id: number | null;
   name: string;
@@ -21,6 +26,8 @@ export type Startup = {
   notes: string;
   link: string;
   date_sourced: Date | null;
+  in_fund: boolean;
+  fund_status: string;
 };
 
 export interface Resource {

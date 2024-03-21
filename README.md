@@ -1,11 +1,19 @@
 # UpRound Platform Spec
 
+## To Do
+- Auth protected route
+- User onboarding
+- Fix name in Google sign-in permission page
+- CRUD operations: posts, resources, accelerator tasks, dealflow startups, fund startups
+- Education for new members
+- User info page
+- App responsiveness
+
 ## Features
 
 ### Accelerator
 - Task allocation
 - Project timeline
-- To-do list for each person
 - Founders can track progress of the group
 
 ### Fund
@@ -18,6 +26,7 @@
 
 ### Overall
 - Calendar: socials, meetings, able to add to own GCal
+- Announcements: post interesting articles to read
 - Member database: info, experiences
 - VC relationship database
 - Resources: Michigan ecosystem, outreach, emails, memos

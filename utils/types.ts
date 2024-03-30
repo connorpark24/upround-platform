@@ -16,9 +16,8 @@ export type User = {
 };
 
 export type Startup = {
-  id: number;
   name: string;
-  member_id: number;
+  user_id: number;
   industry: string;
   status: string;
   umich_startup: boolean;
@@ -45,17 +44,17 @@ export interface Task {
 }
 
 export type Investor = {
-  id: number;
   name: string;
   connect: string;
 };
 
 export type Post = {
-  id?: number;
   title: string;
   description: string;
   link_to_resource: string;
-  author?: number;
+  profiles: {
+    full_name: string;
+  };
 };
 
 export enum StartupStatus {

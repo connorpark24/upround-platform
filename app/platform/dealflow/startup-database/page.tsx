@@ -145,7 +145,7 @@ export default function StartupDatabase() {
     <div className="flex flex-col w-full h-full overflow-auto">
       <Header title="Startup Database" />
       <div className="px-8 pt-4 pb-8">
-        <div className="w-full flex flex-row gap-x-8 mb-6 h-16">
+        <div className="w-full flex flex-row gap-x-8 mb-6 h-16 items-end">
           <div className="w-64">
             <TextInput
               label="Search"
@@ -180,23 +180,23 @@ export default function StartupDatabase() {
               ]}
             />
           </div>
-          <div className="self-end ml-auto">
+          <div className="ml-auto">
             <Button text={"Add Startup"} onClick={() => setIsModalOpen(true)} />
           </div>
-          <Modal isOpen={isModalOpen}>
-            <StartupForm
-              newStartup={newStartup}
-              setNewStartup={setNewStartup}
-              onSubmit={handleAddStartup}
-              onClose={() => setIsModalOpen(false)}
-            />
-          </Modal>
-          <DeleteConfirmationModal
-            isOpen={isDeleteModalOpen}
-            onClose={() => setIsDeleteModalOpen(false)}
-            onConfirm={handleDelete}
-          />
         </div>
+        <Modal isOpen={isModalOpen}>
+          <StartupForm
+            newStartup={newStartup}
+            setNewStartup={setNewStartup}
+            onSubmit={handleAddStartup}
+            onClose={() => setIsModalOpen(false)}
+          />
+        </Modal>
+        <DeleteConfirmationModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={handleDelete}
+        />
         <div className="rounded-lg border-[1px] border-gray-300">
           <div className="flex flex-row py-3 px-8 items-center text-sm bg-gray-100 border-b-[1px] border-gray-200 rounded-t-lg">
             <div className="w-1/6">Name</div>

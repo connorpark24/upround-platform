@@ -17,19 +17,17 @@ const TextInput: React.FC<TextInputProps> = ({
 }) => {
   return (
     <div>
-      <label htmlFor={id} className="text-sm font-medium mb-1">
+      <label htmlFor={id} className="text-sm">
         {label}
       </label>
-      <div>
-        <input
-          id={id}
-          name={id}
-          className="py-1.5 px-2 w-full rounded-md border-gray-200 border-[1px] sm:text-sm"
-          value={value}
-          onChange={onChange}
-          {...props}
-        />
-      </div>
+      <input
+        id={id}
+        name={id}
+        className="mt-1 py-1.5 px-2 w-full rounded-md border-gray-200 border-[1px] sm:text-sm bg-gray-50 focus:bg-white"
+        value={value}
+        onChange={onChange}
+        {...props}
+      />
     </div>
   );
 };

@@ -19,14 +19,28 @@ export default function Dashboard() {
     title: "",
     description: "",
     link_to_resource: "",
-    author: 1,
+    profiles: {
+      full_name: "", // Default value for the full_name property
+    },
   });
 
   const fetchPosts = async () => {
-    const { data, error } = await supabase.from("posts").select("*");
+    const { data, error } = await supabase
+      .from("posts")
+      .select(
+        `
+      *,
+      profiles (
+        full_name
+      )
+    `
+      )
+      .order("created_at", { ascending: false });
+
     if (error) {
       console.error("Error fetching posts:", error);
     } else {
+      console.log(data);
       setPosts(data);
     }
   };
@@ -38,29 +52,27 @@ export default function Dashboard() {
   const handleAddPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!newPost) return;
+    if (!newPost.title || !newPost.description) return;
 
-    const { data, error } = await supabase.from("posts").insert([newPost]);
+    const { data, error } = await supabase
+      .from("posts")
+      .insert([{ ...newPost, author_id: user?.id }]);
 
     if (error) {
       console.error("There was an error inserting the data", error);
       return;
     }
 
-    if (data) {
-      setPosts((currentPosts) => [...currentPosts, ...data]);
-    }
-
+    fetchPosts();
     setNewPost({
-      id: 1,
       title: "",
       description: "",
       link_to_resource: "",
-      author: 1,
+      profiles: {
+        full_name: "",
+      },
     });
-
     setIsModalOpen(false);
-    fetchPosts();
   };
 
   return (
@@ -69,7 +81,7 @@ export default function Dashboard() {
       <div className="px-8 py-4 flex flex-row">
         <div className="w-3/5 pr-8">
           <div className="flex flex-row justify-between items-center mb-4 h-8">
-            <p className="text-xl">Posts</p>
+            <p className="text-xl font-medium">Posts</p>
             <Button
               text={"Post"}
               onClick={() => setIsModalOpen(true)}
@@ -84,15 +96,15 @@ export default function Dashboard() {
               onClose={() => setIsModalOpen(false)}
             />
           </Modal>
-          <div className="flex flex-col gap-y-4">
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} />
+          <div className="flex flex-col gap-y-6">
+            {posts.map((post, index) => (
+              <PostCard key={index} post={post} />
             ))}
           </div>
         </div>
         <div className="w-2/5">
           <div className="flex flex-row justify-between items-center mb-4 h-8">
-            <p className="text-xl">Upcoming Events</p>
+            <p className="text-xl font-medium">Upcoming Events</p>
           </div>
           <EventCard />
         </div>
@@ -107,10 +119,15 @@ type PostCardProps = {
 
 function PostCard({ post }: PostCardProps) {
   return (
-    <div className="w-full h-32 rounded-md border-[1px] border-gray-200 p-4">
-      <p className="text-lg">{post.title}</p>
-      <p className="text-sm">{post.author}</p>
-      <p className="text-sm">{post.description}</p>
+    <div className="w-full">
+      <div className="flex items-center space-x-3 mb-2">
+        <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+          A
+        </div>{" "}
+        <p className="text-sm font-medium">{post.profiles?.full_name}</p>
+      </div>
+      <p className="text-xl mb-2">{post.title}</p>
+      <p className="text-sm text-gray-600">{post.description}</p>
     </div>
   );
 }

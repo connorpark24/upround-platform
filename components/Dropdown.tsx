@@ -15,7 +15,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 }) => {
   return (
     <div>
-      <label htmlFor={id} className="text-sm mb-1">
+      <label htmlFor={id} className="text-sm">
         {label}
       </label>
       <select
@@ -23,7 +23,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         name={id}
         value={value}
         onChange={onChange}
-        className="w-full py-[0.4rem] px-2 rounded-md border-[1px] border-gray-200 text-sm placeholder:text-gray-400"
+        className="mt-1 w-full py-2 px-2 rounded-md border-[1px] border-gray-200 text-xs placeholder:text-gray-400 "
       >
         <option value="">Select {label}</option>
         {options.map((option, index) => (

@@ -16,6 +16,7 @@ export type User = {
 };
 
 export type Startup = {
+  id: number;
   name: string;
   user_id: number;
   industry: string;
@@ -54,6 +55,7 @@ export type Post = {
   link_to_resource: string;
   profiles: {
     full_name: string;
+    avatar_url: string;
   };
 };
 

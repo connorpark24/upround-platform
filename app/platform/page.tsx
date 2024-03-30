@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import Header from "@/components/Header";
 import Modal from "@/components/Modal";
@@ -20,7 +21,8 @@ export default function Dashboard() {
     description: "",
     link_to_resource: "",
     profiles: {
-      full_name: "", // Default value for the full_name property
+      full_name: "",
+      avatar_url: "",
     },
   });
 
@@ -31,7 +33,8 @@ export default function Dashboard() {
         `
       *,
       profiles (
-        full_name
+        full_name,
+        avatar_url
       )
     `
       )
@@ -70,6 +73,7 @@ export default function Dashboard() {
       link_to_resource: "",
       profiles: {
         full_name: "",
+        avatar_url: "",
       },
     });
     setIsModalOpen(false);
@@ -118,12 +122,28 @@ type PostCardProps = {
 };
 
 function PostCard({ post }: PostCardProps) {
+  const initials = post.profiles?.full_name
+    ?.split(" ")
+    .map((name) => name.charAt(0))
+    .join("");
+
   return (
     <div className="w-full">
       <div className="flex items-center space-x-3 mb-2">
-        <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-          A
-        </div>{" "}
+        {post.profiles?.avatar_url ? (
+          <Image
+            src={post.profiles.avatar_url}
+            alt="Author's avatar"
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+        ) : (
+          <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+            {initials}
+          </div>
+        )}
+
         <p className="text-sm font-medium">{post.profiles?.full_name}</p>
       </div>
       <p className="text-xl mb-2">{post.title}</p>

@@ -44,7 +44,7 @@ export default function StartupDatabase() {
   const [newStartup, setNewStartup] = useState<Startup>({
     id: 0,
     name: "",
-    member_id: 0,
+    user_id: 0,
     industry: "",
     status: "",
     umich_startup: false,
@@ -105,7 +105,7 @@ export default function StartupDatabase() {
     setNewStartup({
       id: 0,
       name: "",
-      member_id: 0,
+      user_id: 0,
       industry: "",
       status: "",
       umich_startup: false,
@@ -236,7 +236,7 @@ export default function StartupDatabase() {
                     </span>
                   </div>
                   <div className="w-1/6 pr-2 text-sm">{startup.source}</div>
-                  <div className="w-1/3 pr-2 text-sm">{startup.member_id}</div>
+                  <div className="w-1/3 pr-2 text-sm">{startup.user_id}</div>
                 </div>
                 {expandedRowId === startup.id && (
                   <div className="flex justify-between items-center px-8 text-sm border-b-[1px] border-gray-200">

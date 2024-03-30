@@ -1,5 +1,7 @@
 "use client";
+import TextInput from "@/components/TextInput";
 import { Task } from "@/utils/types";
+import TextAreaInput from "./TextAreaInput";
 
 type TaskFormProps = {
   newTask: Task;
@@ -18,44 +20,23 @@ const TaskForm: React.FC<TaskFormProps> = ({
     <form onSubmit={onSubmit} className="p-6">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
         <div className="sm:col-span-3">
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Task Name
-          </label>
-          <div className="mt-1">
-            <input
-              type="text"
-              name="name"
-              id="name"
-              autoComplete="name"
-              className="block p-1 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newTask.name}
-              onChange={(e) => setNewTask({ ...newTask, name: e.target.value })}
-            />
-          </div>
+          <TextInput
+            label="Task"
+            id="task"
+            value={newTask.name}
+            onChange={(e) => setNewTask({ ...newTask, name: e.target.value })}
+          />
         </div>
 
         <div className="sm:col-span-6">
-          <label
-            htmlFor="notes"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Description
-          </label>
-          <div className="mt-1">
-            <textarea
-              id="notes"
-              name="notes"
-              className="block p-1 w-full max-h-24 rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newTask.description}
-              onChange={(e) =>
-                setNewTask({ ...newTask, description: e.target.value })
-              }
-              rows={2}
-            />
-          </div>
+          <TextAreaInput
+            label="Description"
+            id="notes"
+            value={newTask.description}
+            onChange={(e) =>
+              setNewTask({ ...newTask, description: e.target.value })
+            }
+          />
         </div>
       </div>
 

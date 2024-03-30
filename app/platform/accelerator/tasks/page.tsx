@@ -3,12 +3,12 @@ import { useState } from "react";
 import Button from "@/components/Button";
 import Header from "@/components/Header";
 import TaskForm from "@/components/TaskForm";
+import TextInput from "@/components/TextInput";
 import Modal from "@/components/Modal";
 import { Task } from "@/utils/types";
 
 const sampleData: Task[] = [
   {
-    id: 0,
     name: "Design Website Layout",
     members_assigned: [1, 2],
     done_by: new Date("2023-05-15"),
@@ -16,7 +16,6 @@ const sampleData: Task[] = [
     description: "Focus on user-friendly navigation",
   },
   {
-    id: 1,
     name: "Design Website Layout",
     members_assigned: [1, 2],
     done_by: new Date("2023-05-15"),
@@ -29,12 +28,11 @@ export default function Tasks() {
   const [query, setQuery] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [newTask, setNewTask] = useState<Task>({
-    id: 1,
     name: "",
     members_assigned: [0],
     done_by: new Date("2023-05-15"),
-    status: "In Progress",
-    description: "Focus on user-friendly navigation",
+    status: "",
+    description: "",
   });
 
   const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
@@ -48,17 +46,13 @@ export default function Tasks() {
       <Header title="Tasks" />
       <div className="px-8 pt-4 pb-8">
         <div className="w-full flex flex-row gap-x-8 mb-8 h-16">
-          <div>
-            <label className="block text-md font-medium mb-1">Search</label>
-            <div>
-              <input
-                value={query}
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                }}
-                className="w-64 h-10 rounded-md border-[1px] p-2 text-sm placeholder:text-gray-400"
-              />
-            </div>
+          <div className="w-64">
+            <TextInput
+              label="Search"
+              id="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
           <div className="self-end ml-auto">
             <Button text={"Add Task"} onClick={() => setIsModalOpen(true)} />
@@ -83,7 +77,7 @@ export default function Tasks() {
           <div>
             {sampleData.map((task, index) => (
               <div
-                key={task.id}
+                key={index}
                 className="flex flex-row items-center px-8 py-3 text-sm border-b-[1px] border-gray-200"
               >
                 <div className="w-1/3">{task.name}</div>

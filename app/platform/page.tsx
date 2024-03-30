@@ -21,17 +21,19 @@ export default function Dashboard() {
     link_to_resource: "",
     author: 1,
   });
+
+  const fetchPosts = async () => {
+    const { data, error } = await supabase.from("posts").select("*");
+    if (error) {
+      console.error("Error fetching posts:", error);
+    } else {
+      setPosts(data);
+    }
+  };
+
   useEffect(() => {
-    const fetchPosts = async () => {
-      const { data, error } = await supabase.from("posts").select("*");
-      if (error) {
-        console.error("Error fetching posts:", error);
-      } else {
-        setPosts(data);
-      }
-    };
     fetchPosts();
-  });
+  }, []);
 
   const handleAddPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,6 +60,7 @@ export default function Dashboard() {
     });
 
     setIsModalOpen(false);
+    fetchPosts();
   };
 
   return (

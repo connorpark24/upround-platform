@@ -6,7 +6,9 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 import StartupForm from "@/components/StartupForm";
 import Modal from "@/components/Modal";
-import { Startup, StartupStatus } from "@/utils/types";
+import TextInput from "@/components/TextInput";
+import Dropdown from "@/components/Dropdown";
+import { Startup, StartupStatus, Pod } from "@/utils/types";
 import useSupabase from "@/hooks/useSupabase";
 
 const getStatusColor = (status: string): string => {
@@ -40,7 +42,7 @@ export default function StartupDatabase() {
   const [startupToDelete, setStartupToDelete] = useState<Startup | null>(null);
   const [expandedRowId, setExpandedRowId] = useState<number | null>(null);
   const [newStartup, setNewStartup] = useState<Startup>({
-    id: null,
+    id: 0,
     name: "",
     member_id: 0,
     industry: "",
@@ -50,6 +52,7 @@ export default function StartupDatabase() {
     notes: "",
     link: "",
     date_sourced: null,
+    pod: Pod.Accelerator,
   });
 
   useEffect(() => {
@@ -82,7 +85,7 @@ export default function StartupDatabase() {
     };
 
     fetchStartups();
-  }, [query, industry, status, startups]);
+  }, [query, industry, status, startups, supabase]);
 
   const handleAddStartup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -100,7 +103,7 @@ export default function StartupDatabase() {
     }
 
     setNewStartup({
-      id: null,
+      id: 0,
       name: "",
       member_id: 0,
       industry: "",
@@ -110,6 +113,7 @@ export default function StartupDatabase() {
       notes: "",
       link: "",
       date_sourced: null,
+      pod: Pod.Accelerator,
     });
 
     setIsModalOpen(false);
@@ -142,55 +146,39 @@ export default function StartupDatabase() {
       <Header title="Startup Database" />
       <div className="px-8 pt-4 pb-8">
         <div className="w-full flex flex-row gap-x-8 mb-6 h-16">
-          <div>
-            <label className="block text-md font-medium mb-1">Search</label>
-            <div>
-              <input
-                value={query}
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                }}
-                className="w-72 rounded-md border-[1px] border-gray-300 p-2 py-1.5 text-sm placeholder:text-gray-400"
-              />
-            </div>
+          <div className="w-64">
+            <TextInput
+              label="Search"
+              id="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
           <div>
-            <label
-              htmlFor="industry"
-              className="block text-md font-medium mb-1"
-            >
-              Industry
-            </label>
-            <select
+            <Dropdown
+              label="Industry"
               id="industry"
-              name="industry"
+              value={industry}
               onChange={(e) => setIndustry(e.target.value)}
-              className="w-full p-2 py-1.5  rounded-md border-[1px] border-gray-300 items-center text-sm placeholder:text-gray-400"
-            >
-              <option value="">Select Industry</option>
-              <option value="Consumer + Food">Consumer + Food</option>
-              <option value="Tech + Biomed">Tech + Biomed</option>
-              <option value="Finance">Finance</option>
-            </select>
+              options={["Consumer + Food", "Tech + Biomed", "Finance"]}
+            />
           </div>
 
           <div>
-            <label htmlFor="status" className="block text-md font-medium mb-1">
-              Status
-            </label>
-            <select
+            <Dropdown
+              label="Status"
               id="status"
-              name="status"
+              value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="w-full rounded-md border-[1px] border-gray-300 items-center text-sm p-2 py-1.5  placeholder:text-gray-400"
-            >
-              <option value="">Select Status</option>
-              {Object.values(StartupStatus).map((status) => (
-                <option key={status} value={status}>
-                  {status}
-                </option>
-              ))}
-            </select>
+              options={[
+                "Contacted",
+                "Call",
+                "Memo Written",
+                "Passed on to Partners",
+                "Passed on to Fund",
+                "Rejected",
+              ]}
+            />
           </div>
           <div className="self-end ml-auto">
             <Button text={"Add Startup"} onClick={() => setIsModalOpen(true)} />

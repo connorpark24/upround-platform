@@ -6,7 +6,7 @@ export type Member = {
   phone: string;
   major: string;
   year: number;
-  pod: string;
+  pod: Pod;
   hometown: string;
 };
 
@@ -16,7 +16,7 @@ export type User = {
 };
 
 export type Startup = {
-  id: number | null;
+  id: number;
   name: string;
   member_id: number;
   industry: string;
@@ -26,20 +26,17 @@ export type Startup = {
   notes: string;
   link: string;
   date_sourced: Date | null;
-  in_fund: boolean;
-  fund_status: string;
+  pod: Pod;
 };
 
 export interface Resource {
-  id: number;
   name: string;
   description: string;
   link: string;
-  category: string;
+  pod: Pod;
 }
 
 export interface Task {
-  id: number;
   name: string;
   description: string;
   done_by: Date;
@@ -71,7 +68,14 @@ export enum StartupStatus {
 }
 
 export enum Rank {
-  NewUser = 0,
-  Member = 1,
-  Board = 2,
+  NewMember,
+  Member,
+  Board,
+  Alumni,
+}
+
+export enum Pod {
+  Accelerator = "Accelerator",
+  Dealflow = "Dealflow",
+  Fund = "Fund",
 }

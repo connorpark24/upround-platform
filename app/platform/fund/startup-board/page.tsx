@@ -84,7 +84,7 @@ function StartupCard({ startup }: StartupCardProps) {
     <div className="border-[1px] h-48 rounded-xl p-4 relative">
       <div
         className={`absolute top-2 right-2 w-3 h-3 rounded-full ${getStatusColor(
-          startup.fund_status
+          startup.status
         )}`}
       ></div>
       <div className="flex flex-row gap-x-2 text-lg items-center">

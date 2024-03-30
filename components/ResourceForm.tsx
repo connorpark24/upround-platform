@@ -1,5 +1,5 @@
 "use client";
-import { Resource } from "@/utils/types";
+import { Resource, Pod } from "@/utils/types";
 
 type ResourceFormProps = {
   newResource: Resource;
@@ -29,7 +29,7 @@ const ResourceForm: React.FC<ResourceFormProps> = ({
               type="text"
               name="name"
               id="name"
-              className="block p-1 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
+              className="block py-1.5 px-2 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
               value={newResource.name}
               onChange={(e) =>
                 setNewResource({ ...newResource, name: e.target.value })
@@ -40,28 +40,31 @@ const ResourceForm: React.FC<ResourceFormProps> = ({
 
         <div className="sm:col-span-4">
           <label
-            htmlFor="category"
+            htmlFor="pod"
             className="block text-sm font-medium text-gray-700"
           >
-            Category
+            Pod
           </label>
           <div className="mt-1">
-            <input
-              type="text"
-              name="category"
-              id="category"
-              className="block p-1 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newResource.category}
+            <select
+              name="pod"
+              id="pod"
+              className="block py-1.5 px-2 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
+              value={newResource.pod}
               onChange={(e) =>
-                setNewResource({ ...newResource, category: e.target.value })
+                setNewResource({ ...newResource, pod: e.target.value as Pod })
               }
-            />
+            >
+              <option value={Pod.Accelerator}>{Pod.Accelerator}</option>
+              <option value={Pod.Dealflow}>{Pod.Dealflow}</option>
+              <option value={Pod.Fund}>{Pod.Fund}</option>
+            </select>
           </div>
         </div>
 
         <div className="sm:col-span-6">
           <label
-            htmlFor="category"
+            htmlFor="link"
             className="block text-sm font-medium text-gray-700"
           >
             Link to Resource
@@ -69,12 +72,12 @@ const ResourceForm: React.FC<ResourceFormProps> = ({
           <div className="mt-1">
             <input
               type="text"
-              name="category"
-              id="category"
-              className="block p-1 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newResource.category}
+              name="link"
+              id="link"
+              className="block py-1.5 px-2 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
+              value={newResource.link}
               onChange={(e) =>
-                setNewResource({ ...newResource, category: e.target.value })
+                setNewResource({ ...newResource, link: e.target.value })
               }
             />
           </div>
@@ -91,7 +94,7 @@ const ResourceForm: React.FC<ResourceFormProps> = ({
             <textarea
               id="notes"
               name="notes"
-              className="block p-1 w-full max-h-24 rounded-md border-gray-300 border-[1px] sm:text-sm"
+              className="block py-1.5 px-2 w-full max-h-24 min-h-12 rounded-md border-gray-300 border-[1px] sm:text-sm"
               value={newResource.description}
               onChange={(e) =>
                 setNewResource({ ...newResource, description: e.target.value })

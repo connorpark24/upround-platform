@@ -5,25 +5,23 @@ import Modal from "@/components/Modal";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
 import ResourceForm from "@/components/ResourceForm";
-import { Resource } from "@/utils/types";
+import TextInput from "@/components/TextInput";
+import { Resource, Pod } from "@/utils/types";
 import useSupabase from "@/hooks/useSupabase";
 
 export default function Resources() {
   const { supabase } = useSupabase();
 
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newResource, setNewResource] = useState<Resource>({
-    id: 0,
     name: "",
     description: "",
     link: "",
-    category: "",
+    pod: Pod.Accelerator,
   });
 
-  const [resources, setResources] = useState<{
-    [category: string]: Resource[];
-  }>({});
+  const [resources, setResources] = useState<{ [key in Pod]: Resource[] }>({});
 
   useEffect(() => {
     const fetchResources = async () => {
@@ -34,16 +32,16 @@ export default function Resources() {
       }
 
       const groupedResources = data?.reduce((acc, resource) => {
-        acc[resource.category] = acc[resource.category] || [];
-        acc[resource.category].push(resource);
+        acc[resource.pod] = acc[resource.pod] || [];
+        acc[resource.pod].push(resource);
         return acc;
-      }, {} as { [category: string]: Resource[] });
+      }, {} as { [pod: string]: Resource[] });
 
       setResources(groupedResources || {});
     };
 
     fetchResources();
-  }, []);
+  }, [supabase]);
 
   const handleAddResource = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,20 +58,19 @@ export default function Resources() {
       setResources((currentResources) => {
         const updatedResources = { ...currentResources };
         (data as Resource[]).forEach((resource) => {
-          const category = resource.category;
-          updatedResources[category] = updatedResources[category] || [];
-          updatedResources[category].push(resource);
+          const pod = resource.pod;
+          updatedResources[pod] = updatedResources[pod] || [];
+          updatedResources[pod].push(resource);
         });
         return updatedResources;
       });
     }
 
     setNewResource({
-      id: 0,
       name: "",
       description: "",
       link: "",
-      category: "",
+      pod: Pod.Accelerator,
     });
 
     setIsModalOpen(false);
@@ -84,17 +81,13 @@ export default function Resources() {
       <Header title="Resources" />
       <div className="flex flex-col px-8 py-4">
         <div className="w-full flex flex-row gap-x-8 mb-8 h-16">
-          <div>
-            <label className="block text-md mb-1">Search</label>
-            <div>
-              <input
-                value={query}
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                }}
-                className="w-64 h-10 rounded-md border-[1px] p-2 text-sm placeholder:text-gray-400"
-              />
-            </div>
+          <div className="w-64">
+            <TextInput
+              label="Search"
+              id="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
 
           <div className="self-end ml-auto">
@@ -114,9 +107,9 @@ export default function Resources() {
           </Modal>
         </div>
         <div className="flex flex-col gap-y-8">
-          {Object.entries(resources).map(([category, resources]) => (
-            <div key={category}>
-              <p className="text-lg mb-3">{category}</p>
+          {Object.entries(resources).map(([pod, resources]) => (
+            <div key={pod}>
+              <p className="text-lg mb-3">{pod}</p>
               <div className="grid grid-cols-4 gap-4">
                 {resources.map((resource) => (
                   <ResourceTile key={resource.name} resource={resource} />

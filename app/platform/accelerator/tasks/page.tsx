@@ -14,6 +14,9 @@ const sampleData: Task[] = [
     done_by: new Date("2023-05-15"),
     status: "In Progress",
     description: "Focus on user-friendly navigation",
+    profiles: {
+      full_name: "",
+    },
   },
   {
     name: "Design Website Layout",
@@ -21,6 +24,9 @@ const sampleData: Task[] = [
     done_by: new Date("2023-05-15"),
     status: "In Progress",
     description: "Focus on user-friendly navigation",
+    profiles: {
+      full_name: "Connor Park",
+    },
   },
 ];
 
@@ -31,8 +37,11 @@ export default function Tasks() {
     name: "",
     members_assigned: [0],
     done_by: new Date("2023-05-15"),
-    status: "",
+    status: "In Progress",
     description: "",
+    profiles: {
+      full_name: "",
+    },
   });
 
   const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,7 +54,7 @@ export default function Tasks() {
     <div className="flex flex-col w-full h-full">
       <Header title="Tasks" />
       <div className="px-8 pt-4 pb-8">
-        <div className="w-full flex flex-row gap-x-8 mb-8 h-16">
+        <div className="w-full flex flex-row gap-x-8 mb-8 items-end">
           <div className="w-64">
             <TextInput
               label="Search"

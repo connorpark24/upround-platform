@@ -1,5 +1,8 @@
 "use client";
-import { Startup, StartupStatus } from "@/utils/types";
+import TextInput from "./TextInput";
+import Dropdown from "./Dropdown";
+import TextAreaInput from "./TextAreaInput";
+import { Startup } from "@/utils/types";
 
 type StartupFormProps = {
   newStartup: Startup;
@@ -18,121 +21,67 @@ const StartupForm: React.FC<StartupFormProps> = ({
     <form onSubmit={onSubmit} className="p-6">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
         <div className="sm:col-span-3">
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Startup Name
-          </label>
-          <div className="mt-1">
-            <input
-              type="text"
-              name="name"
-              id="name"
-              autoComplete="name"
-              className="block p-1 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newStartup.name}
-              onChange={(e) =>
-                setNewStartup({ ...newStartup, name: e.target.value })
-              }
-            />
-          </div>
+          <TextInput
+            label="Startup Name"
+            id="name"
+            value={newStartup.name}
+            onChange={(e) =>
+              setNewStartup({ ...newStartup, name: e.target.value })
+            }
+          />
         </div>
 
         <div className="sm:col-span-3">
-          <label
-            htmlFor="industry"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Industry
-          </label>
-          <div className="mt-1">
-            <input
-              type="text"
-              name="industry"
-              id="industry"
-              autoComplete="industry"
-              className="block p-1 w-full rounded-md border-gray-300 border-[1px]  sm:text-sm"
-              value={newStartup.industry}
-              onChange={(e) =>
-                setNewStartup({
-                  ...newStartup,
-                  industry: e.target.value,
-                })
-              }
-            />
-          </div>
+          <TextInput
+            label="Industry"
+            id="industry"
+            value={newStartup.industry}
+            onChange={(e) =>
+              setNewStartup({ ...newStartup, industry: e.target.value })
+            }
+          />
         </div>
 
         <div className="sm:col-span-6">
-          <label
-            htmlFor="status"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Status
-          </label>
-          <div className="mt-1">
-            <select
-              id="status"
-              name="status"
-              autoComplete="status"
-              className="p-1 block w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newStartup.status}
-              onChange={(e) =>
-                setNewStartup({ ...newStartup, status: e.target.value })
-              }
-            >
-              <option value="">Select Status</option>
-              {Object.values(StartupStatus).map((status) => (
-                <option key={status} value={status}>
-                  {status}
-                </option>
-              ))}
-            </select>
-          </div>
+          <Dropdown
+            label="Status"
+            id="status"
+            value={newStartup.status}
+            onChange={(e) =>
+              setNewStartup({ ...newStartup, status: e.target.value })
+            }
+            options={[
+              "Contacted",
+              "Call",
+              "Memo Written",
+              "Passed on to Partners",
+              "Passed on to Fund",
+              "Rejected",
+            ]}
+          />
         </div>
 
         <div className="sm:col-span-6">
-          <label
-            htmlFor="source"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Source
-          </label>
-          <div className="mt-1">
-            <input
-              type="text"
-              name="source"
-              id="source"
-              autoComplete="source"
-              className="block p-1 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newStartup.source}
-              onChange={(e) =>
-                setNewStartup({ ...newStartup, source: e.target.value })
-              }
-            />
-          </div>
+          <TextInput
+            label="Source"
+            id="source"
+            value={newStartup.source}
+            onChange={(e) =>
+              setNewStartup({ ...newStartup, source: e.target.value })
+            }
+          />
         </div>
 
         <div className="sm:col-span-6">
-          <label
-            htmlFor="notes"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Notes
-          </label>
-          <div className="mt-1">
-            <textarea
-              id="notes"
-              name="notes"
-              className="block p-1 w-full h-24 rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newStartup.notes}
-              onChange={(e) =>
-                setNewStartup({ ...newStartup, notes: e.target.value })
-              }
-              rows={4}
-            />
-          </div>
+          <TextAreaInput
+            label="Notes"
+            id="notes"
+            value={newStartup.notes}
+            onChange={(e) =>
+              setNewStartup({ ...newStartup, notes: e.target.value })
+            }
+            rows={3}
+          />
         </div>
       </div>
 

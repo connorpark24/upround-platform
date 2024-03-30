@@ -145,7 +145,7 @@ export default function StartupDatabase() {
     <div className="flex flex-col w-full h-full overflow-auto">
       <Header title="Startup Database" />
       <div className="px-8 pt-4 pb-8">
-        <div className="w-full flex flex-row gap-x-8 mb-6 h-16 items-end">
+        <div className="w-full flex flex-row gap-x-8 mb-8 items-end">
           <div className="w-64">
             <TextInput
               label="Search"
@@ -226,9 +226,9 @@ export default function StartupDatabase() {
                     </a>
                   </div>
                   <div className="w-1/6 pr-2 text-sm">{startup.industry}</div>
-                  <div className="w-1/6 pr-2 text-sm">
+                  <div className="w-1/6 pr-2">
                     <span
-                      className={`text-xs px-3 py-1 rounded-full text-white ${getStatusColor(
+                      className={`text-[0.7rem] px-3 py-1 rounded-full text-white ${getStatusColor(
                         startup.status
                       )}`}
                     >

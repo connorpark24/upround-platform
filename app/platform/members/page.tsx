@@ -40,7 +40,7 @@ export default function Members() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {member.name}
+                    {member.full_name}
                   </a>
                 </div>
                 <div className="w-1/4 flex flex-col">

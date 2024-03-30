@@ -1,3 +1,5 @@
+import TextAreaInput from "./TextAreaInput";
+import TextInput from "./TextInput";
 import { Post } from "@/utils/types";
 
 type PostFormProps = {
@@ -17,66 +19,35 @@ const PostForm: React.FC<PostFormProps> = ({
     <form onSubmit={onSubmit} className="p-6">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-6">
         <div className="sm:col-span-6">
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Title
-          </label>
-          <div className="mt-1">
-            <input
-              type="text"
-              name="title"
-              id="title"
-              className="block p-1.5 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newPost.title}
-              onChange={(e) =>
-                setNewPost({ ...newPost, title: e.target.value })
-              }
-            />
-          </div>
+          <TextInput
+            label="Title"
+            id="title"
+            value={newPost.title}
+            onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+          />
         </div>
 
         <div className="sm:col-span-6">
-          <label
-            htmlFor="description"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Description
-          </label>
-          <div className="mt-1">
-            <textarea
-              id="description"
-              name="description"
-              className="block p-1.5 w-full max-h-24 rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newPost.description}
-              onChange={(e) =>
-                setNewPost({ ...newPost, description: e.target.value })
-              }
-              rows={2}
-            />
-          </div>
+          <TextAreaInput
+            label="Description"
+            id="description"
+            value={newPost.description}
+            onChange={(e) =>
+              setNewPost({ ...newPost, description: e.target.value })
+            }
+            rows={2}
+          />
         </div>
 
         <div className="sm:col-span-6">
-          <label
-            htmlFor="link_to_resource"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Link to Resource
-          </label>
-          <div className="mt-1">
-            <input
-              type="text"
-              name="link_to_resource"
-              id="link_to_resource"
-              className="block p-1.5 w-full rounded-md border-gray-300 border-[1px] sm:text-sm"
-              value={newPost.link_to_resource}
-              onChange={(e) =>
-                setNewPost({ ...newPost, link_to_resource: e.target.value })
-              }
-            />
-          </div>
+          <TextInput
+            label="Link to Resource"
+            id="link_to_resource"
+            value={newPost.link_to_resource}
+            onChange={(e) =>
+              setNewPost({ ...newPost, link_to_resource: e.target.value })
+            }
+          />
         </div>
       </div>
 

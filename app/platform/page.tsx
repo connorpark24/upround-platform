@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import { ring } from "ldrs";
+
 import Image from "next/image";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import Header from "@/components/Header";
@@ -11,10 +13,12 @@ import { createSupabaseBrowserClient } from "@/utils/supabaseBrowserClient";
 import { Post } from "@/utils/types";
 
 export default function Dashboard() {
+  ring.register();
   const { user } = useSupabase();
   const supabase = createSupabaseBrowserClient();
 
   const [posts, setPosts] = useState<Post[]>([]);
+  const [loadingPosts, setLoadingPosts] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [newPost, setNewPost] = useState<Post>({
     title: "",
@@ -27,6 +31,7 @@ export default function Dashboard() {
   });
 
   const fetchPosts = async () => {
+    setLoadingPosts(true);
     const { data, error } = await supabase
       .from("posts")
       .select(
@@ -45,6 +50,7 @@ export default function Dashboard() {
     } else {
       console.log(data);
       setPosts(data);
+      setLoadingPosts(false);
     }
   };
 
@@ -100,11 +106,22 @@ export default function Dashboard() {
               onClose={() => setIsModalOpen(false)}
             />
           </Modal>
-          <div className="flex flex-col gap-y-6">
-            {posts.map((post, index) => (
-              <PostCard key={index} post={post} />
-            ))}
-          </div>
+
+          {loadingPosts ? (
+            <l-ring
+              size="40"
+              stroke="5"
+              bg-opacity="0"
+              speed="2"
+              color="black"
+            />
+          ) : (
+            <div className="flex flex-col gap-y-6">
+              {posts.map((post, index) => (
+                <PostCard key={index} post={post} />
+              ))}
+            </div>
+          )}
         </div>
         <div className="w-2/5">
           <div className="flex flex-row justify-between items-center mb-4 h-8">

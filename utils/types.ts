@@ -1,6 +1,6 @@
 export type Member = {
   id: number;
-  name: string;
+  full_name: string;
   linkedin: string;
   email: string;
   phone: string;
@@ -42,6 +42,9 @@ export interface Task {
   done_by: Date;
   members_assigned: number[];
   status: string;
+  profiles: {
+    full_name: string;
+  };
 }
 
 export type Investor = {

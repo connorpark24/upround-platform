@@ -80,7 +80,7 @@ export default function Resources() {
     <div className="flex flex-col w-full h-full">
       <Header title="Resources" />
       <div className="flex flex-col px-8 py-4">
-        <div className="w-full flex flex-row gap-x-8 mb-8 h-16">
+        <div className="w-full flex flex-row gap-x-8 mb-8 items-end">
           <div className="w-64">
             <TextInput
               label="Search"

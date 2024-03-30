@@ -18,13 +18,13 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
         <div className="flex justify-end space-x-4 mt-4">
           <button
             onClick={onClose}
-            className="bg-gray-300 rounded-md px-3.5 py-1.5"
+            className="bg-gray-300 rounded-md px-3.5 py-1.5 text-sm"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
-            className="text-white bg-red-500 rounded-md px-3.5 py-1.5"
+            className="text-white bg-red-500 rounded-md px-3.5 py-1.5 text-sm"
           >
             Delete
           </button>

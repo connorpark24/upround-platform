@@ -1,21 +1,23 @@
 "use client";
-import { useRouter, redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 import useSupabase from "@/hooks/useSupabase";
+import Login from "@/app/auth/login/page";
 
 interface ProtectedRouteProps {
   children: ReactNode;
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { user } = useSupabase();
+  const context = useSupabase();
+  const router = useRouter();
 
-  console.log(user);
+
   useEffect(() => {
-    if (!user) {
+    if (!context.user) {
       redirect("/auth/login");
     }
-  }, []);
+  }, [context, router]);
 
-  return children;
+  return context.initialLoaded ? children : Login;
 }

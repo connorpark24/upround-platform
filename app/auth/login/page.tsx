@@ -1,5 +1,5 @@
 "use client";
-import { createSupabaseBrowserClient } from "@/utils/supabaseBrowserClient";
+import { createSupabaseBrowserClient } from "@/utils/supabase/supabaseBrowserClient";
 
 export default function Login() {
   const supabase = createSupabaseBrowserClient();

@@ -1,12 +1,10 @@
 # UpRound Platform Spec
 
 ## To Do
-- Auth protected route
 - User onboarding
 - Fix name in Google sign-in permission page
 - CRUD operations: posts, resources, accelerator tasks, dealflow startups, fund startups
 - Education for new members
-- User info page
 - App responsiveness
 
 ## Features

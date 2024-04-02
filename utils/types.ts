@@ -77,7 +77,7 @@ export enum StartupStatus {
 }
 
 export enum Rank {
-  NewMember = "New Member",
+  NewMember = "NewMember",
   Member = "Member",
   Board = "Board",
   Alumni = "Almuni",

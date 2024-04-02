@@ -1,6 +1,3 @@
-// TextInput.tsx
-import React from "react";
-
 interface TextInputProps {
   label: string;
   id: string;

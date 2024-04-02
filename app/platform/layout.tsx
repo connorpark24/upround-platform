@@ -17,13 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ProtectedRoute>
-      <div className="flex flex-row h-screen overflow-hidden">
-        <Sidebar />
-        <div className="flex flex-col w-full flex-1 overflow-auto">
-          {children}
-        </div>
+    // <ProtectedRoute>
+    <div className="flex flex-row h-screen overflow-hidden">
+      <Sidebar />
+      <div className="flex flex-col w-full flex-1 overflow-auto">
+        {children}
       </div>
-    </ProtectedRoute>
+    </div>
+    // </ProtectedRoute>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { ring } from "ldrs";
 import Image from "next/image";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import Header from "@/components/Header";
@@ -12,7 +11,6 @@ import { createSupabaseBrowserClient } from "@/utils/supabaseBrowserClient";
 import { Post } from "@/utils/types";
 
 export default function Dashboard() {
-  ring.register();
   const { user } = useSupabase();
   const supabase = createSupabaseBrowserClient();
 
@@ -107,13 +105,7 @@ export default function Dashboard() {
           </Modal>
 
           {loadingPosts ? (
-            <l-ring
-              size="40"
-              stroke="5"
-              bg-opacity="0"
-              speed="2"
-              color="black"
-            />
+            <p>Loading...</p>
           ) : (
             <div className="flex flex-col gap-y-6">
               {posts.map((post, index) => (

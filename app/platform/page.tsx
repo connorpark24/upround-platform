@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { ring } from "ldrs";
-
 import Image from "next/image";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import Header from "@/components/Header";

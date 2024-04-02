@@ -1,18 +1,23 @@
 export type Member = {
-  id: number;
   full_name: string;
   linkedin: string;
   email: string;
   phone: string;
   major: string;
   year: number;
-  pod: Pod;
   hometown: string;
 };
 
 export type User = {
-  id: number;
-  name: string;
+  full_name: string;
+  linkedin: string;
+  email: string;
+  phone: string;
+  major: string;
+  year: number;
+  hometown: string;
+  pod: Pod;
+  rank: Rank;
 };
 
 export type Startup = {
@@ -39,8 +44,8 @@ export interface Resource {
 export interface Task {
   name: string;
   description: string;
-  done_by: Date;
-  members_assigned: number[];
+  done_by: string;
+  user_assigned: 0;
   status: string;
   profiles: {
     full_name: string;
@@ -72,10 +77,10 @@ export enum StartupStatus {
 }
 
 export enum Rank {
-  NewMember,
-  Member,
-  Board,
-  Alumni,
+  NewMember = "New Member",
+  Member = "Member",
+  Board = "Board",
+  Alumni = "Almuni",
 }
 
 export enum Pod {

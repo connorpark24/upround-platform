@@ -239,8 +239,8 @@ export default function StartupDatabase() {
                   <div className="w-1/3 pr-2 text-sm">{startup.user_id}</div>
                 </div>
                 {expandedRowId === startup.id && (
-                  <div className="flex justify-between items-center px-8 text-sm border-b-[1px] border-gray-200">
-                    <div className="w-full py-2">
+                  <div className="flex justify-between items-center px-8 pt-4 pb-8 text-sm border-b-[1px] border-gray-200">
+                    <div className="w-full">
                       <p>
                         {startup.notes ? startup.notes : "No notes available"}
                       </p>

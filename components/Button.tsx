@@ -11,7 +11,7 @@ export default function Button({ text, onClick, icon }: ButtonProps) {
     <div>
       <button
         type="button"
-        className="flex flex-row items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-400"
+        className="shadow-md lex flex-row items-center px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-400"
         onClick={onClick}
       >
         <p>{text}</p>

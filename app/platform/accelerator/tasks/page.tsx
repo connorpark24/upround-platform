@@ -1,48 +1,54 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@/components/Button";
 import Header from "@/components/Header";
 import TaskForm from "@/components/TaskForm";
 import TextInput from "@/components/TextInput";
 import Modal from "@/components/Modal";
 import { Task } from "@/utils/types";
-
-const sampleData: Task[] = [
-  {
-    name: "Design Website Layout",
-    members_assigned: [1, 2],
-    done_by: new Date("2023-05-15"),
-    status: "In Progress",
-    description: "Focus on user-friendly navigation",
-    profiles: {
-      full_name: "",
-    },
-  },
-  {
-    name: "Design Website Layout",
-    members_assigned: [1, 2],
-    done_by: new Date("2023-05-15"),
-    status: "In Progress",
-    description: "Focus on user-friendly navigation",
-    profiles: {
-      full_name: "Connor Park",
-    },
-  },
-];
+import useSupabase from "@/hooks/useSupabase";
 
 export default function Tasks() {
+  const { supabase } = useSupabase();
+
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [query, setQuery] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [newTask, setNewTask] = useState<Task>({
     name: "",
-    members_assigned: [0],
-    done_by: new Date("2023-05-15"),
+    user_assigned: 0,
+    done_by: "2023-05-15",
     status: "In Progress",
     description: "",
     profiles: {
       full_name: "",
     },
   });
+
+  const fetchTasks = async () => {
+    const { data, error } = await supabase
+      .from("tasks")
+      .select(
+        `
+      *,
+      profiles (
+        full_name
+      )
+    `
+      )
+      .order("created_at", { ascending: true });
+
+    if (error) {
+      console.error("Error fetching tasks:", error);
+    } else {
+      console.log(data);
+      setTasks(data);
+    }
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
   const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -75,23 +81,48 @@ export default function Tasks() {
             />
           </Modal>
         </div>
-
+        <h1 className="font-medium text-xl mb-4">To-Do</h1>
         <div className="bg-white rounded-lg border-gray-200 border-[1px]">
           <div className="flex flex-row w-full items-center px-8 py-3 bg-gray-100 text-sm border-b-[1px] border-gray-200">
             <div className="w-1/3">Title</div>
-            <div className="w-1/6">Member(s)</div>
+            <div className="w-1/6">Assigned to</div>
             <div className="w-1/6">Done By</div>
             <div className="w-1/6">Status</div>
           </div>
           <div>
-            {sampleData.map((task, index) => (
+            {tasks.map((task, index) => (
               <div
                 key={index}
                 className="flex flex-row items-center px-8 py-3 text-sm border-b-[1px] border-gray-200"
               >
                 <div className="w-1/3">{task.name}</div>
-                <div className="w-1/6">{task.members_assigned[0]}</div>
-                <div className="w-1/6">{task.done_by.getDate()}</div>
+                <div className="w-1/6">{task.profiles.full_name}</div>
+                <div className="w-1/6"> {new Date(task.done_by).getDate()}</div>
+                <div className="w-1/6">{task.status}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12 mb-4 bg-gray-200 h-[1px]"></div>
+
+        <h1 className="font-medium text-xl mb-4">Done</h1>
+        <div className="bg-white rounded-lg border-gray-200 border-[1px]">
+          <div className="flex flex-row w-full items-center px-8 py-3 bg-gray-100 text-sm border-b-[1px] border-gray-200">
+            <div className="w-1/3">Title</div>
+            <div className="w-1/6">Assigned to</div>
+            <div className="w-1/6">Done By</div>
+            <div className="w-1/6">Status</div>
+          </div>
+          <div>
+            {tasks.map((task, index) => (
+              <div
+                key={index}
+                className="flex flex-row items-center px-8 py-3 text-sm border-b-[1px] border-gray-200"
+              >
+                <div className="w-1/3">{task.name}</div>
+                <div className="w-1/6">{task.profiles.full_name}</div>
+                <div className="w-1/6"> {new Date(task.done_by).getDate()}</div>
                 <div className="w-1/6">{task.status}</div>
               </div>
             ))}

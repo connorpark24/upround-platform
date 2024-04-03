@@ -15,7 +15,7 @@ export default function Members() {
       if (data) setMembers(data);
     };
     fetchStartups();
-  }, []);
+  }, [supabase]);
 
   return (
     <div className="flex flex-col w-full h-full">
@@ -31,7 +31,7 @@ export default function Members() {
           <div>
             {members.map((member, index) => (
               <div
-                key={member.id}
+                key={index}
                 className="flex flex-row items-center px-8 py-2 text-sm border-b-[1px] border-gray-200"
               >
                 <div className="w-1/6">

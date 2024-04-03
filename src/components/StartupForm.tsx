@@ -2,7 +2,7 @@
 import TextInput from "./TextInput";
 import Dropdown from "./Dropdown";
 import TextAreaInput from "./TextAreaInput";
-import { Startup } from "@/utils/types";
+import { Startup } from "@/src/utils/types";
 
 type StartupFormProps = {
   newStartup: Startup;

@@ -1,6 +1,6 @@
 import TextAreaInput from "./TextAreaInput";
 import TextInput from "./TextInput";
-import { Post } from "@/utils/types";
+import { Post } from "@/src/utils/types";
 
 type PostFormProps = {
   newPost: Post;

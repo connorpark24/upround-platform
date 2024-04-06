@@ -1,4 +1,4 @@
-# UpRound Platform Spec
+# UpRound Ventures Platform
 
 ### To Do
 - User onboarding

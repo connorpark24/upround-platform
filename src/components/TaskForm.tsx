@@ -1,6 +1,6 @@
 "use client";
-import TextInput from "@/src/components/TextInput";
-import { Task } from "@/src/utils/types";
+import TextInput from "@/components/TextInput";
+import { Task } from "@/utils/types";
 import TextAreaInput from "./TextAreaInput";
 
 type TaskFormProps = {

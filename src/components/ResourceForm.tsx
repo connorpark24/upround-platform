@@ -1,5 +1,5 @@
 "use client";
-import { Resource, Pod } from "@/src/utils/types";
+import { Resource, Pod } from "@/utils/types";
 
 type ResourceFormProps = {
   newResource: Resource;

@@ -1,8 +1,8 @@
 "use client";
 import { redirect, useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
-import useSupabase from "@/src/hooks/useSupabase";
-import Login from "@/src/app/auth/login/page";
+import useSupabase from "@/hooks/useSupabase";
+import Login from "@/app/auth/login/page";
 
 interface ProtectedRouteProps {
   children: ReactNode;

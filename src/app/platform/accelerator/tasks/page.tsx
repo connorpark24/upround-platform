@@ -41,7 +41,6 @@ export default function Tasks() {
     if (error) {
       console.error("Error fetching tasks:", error);
     } else {
-      console.log(data);
       setTasks(data);
     }
   };
@@ -50,9 +49,26 @@ export default function Tasks() {
     fetchTasks();
   }, []);
 
-  const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddTask = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(newTask.name);
+
+    const { data, error } = await supabase.from("tasks").insert([newTask]);
+
+    if (error) {
+      console.log(error);
+    }
+
+    setNewTask({
+      name: "",
+      user_assigned: 0,
+      done_by: "2023-05-15",
+      status: "In Progress",
+      description: "",
+      profiles: {
+        full_name: "",
+      },
+    });
+
     setIsModalOpen(false);
   };
 

@@ -8,6 +8,7 @@ import { User, Pod, Rank } from "@/utils/types";
 
 export default function Profile() {
   const { supabase, user } = useSupabase();
+  const [success, setSuccess] = useState<boolean>(false);
 
   const [userData, setUserData] = useState<User>({
     full_name: "",
@@ -69,19 +70,38 @@ export default function Profile() {
       .eq("id", user?.id);
 
     if (error) {
-      console.error("Error updating user data:", error);
-    } else {
-      console.log("User data updated successfully:", data);
+      console.log(error);
     }
+
+    setUserData({
+      full_name: "",
+      email: "",
+      phone: "",
+      pod: Pod.Accelerator,
+      rank: Rank.NewMember,
+      major: "",
+      year: 0,
+      hometown: "",
+      linkedin: "",
+    });
+
+    setSuccess(true);
   };
 
   return (
     <div className="flex flex-col h-full w-full">
       <Header title="Profile" />
-      <div className="p-8 flex">
+      <div className="p-8 flex flex-col">
+        {success && (
+          <>
+            <p className="font-xl text-center w-full font-medium p-4">
+              Profile updated successfully!
+            </p>
+          </>
+        )}
         <form onSubmit={handleSubmit} className="mx-auto w-1/2">
           <div className="border-b border-gray-900/10 pb-12">
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-6">
                 <TextInput
                   label="Full Name"
@@ -149,12 +169,6 @@ export default function Profile() {
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button
-              type="button"
-              className="text-sm font-semibold text-gray-900"
-            >
-              Cancel
-            </button>
             <Button text="Save" type="submit" />
           </div>
         </form>
